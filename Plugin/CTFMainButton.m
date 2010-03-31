@@ -11,6 +11,9 @@
 #import "Plugin.h"
 #import "CTFUtilities.h"
 #import "NSBezierPath-RoundedRectangle.h"
+#import "CTFUserDefaultsController.h"
+
+static NSString *sAprilFoolsJokeKey = @"enableClickToFlashMascot";
 
 
 
@@ -47,24 +50,81 @@
 - (void) drawWithFrame: (NSRect) rect inView:(NSView *) controlView {
 	NSRect bounds = [[self controlView] bounds];
 	NSRect fillRect   = NSInsetRect(bounds, 1.0, 1.0);
-    
+	
+	NSDate *todaysDate = [NSDate date];
+	NSCalendar *gregorianCal = [[NSCalendar alloc]
+								initWithCalendarIdentifier:NSGregorianCalendar];
+	unsigned componentFlags = NSMonthCalendarUnit |  NSDayCalendarUnit;
+	NSDateComponents *todaysDateComponents = [gregorianCal components:componentFlags fromDate:todaysDate];
+	
+	[gregorianCal release];
+	
+	BOOL aprilFools = ( ([todaysDateComponents month] == 4) && ([todaysDateComponents day] == 1) );
+	
 	[self drawGradientInRect: fillRect];
 	[self drawPreviewInRect: fillRect];
 	
-    // Draw stroke
-    [[NSColor colorWithCalibratedWhite:0.0 alpha:0.50] set];
-    [NSBezierPath setDefaultLineWidth:2.0];
-    [NSBezierPath setDefaultLineCapStyle:NSSquareLineCapStyle];
-    [[NSBezierPath bezierPathWithRect:bounds] stroke];
+	// Draw stroke
+	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.50] set];
+	[NSBezierPath setDefaultLineWidth:2.0];
+	[NSBezierPath setDefaultLineCapStyle:NSSquareLineCapStyle];
+	[[NSBezierPath bezierPathWithRect:bounds] stroke];
 	
-    // Draw label
-    [self drawBadgeForBounds: bounds];
-    
-	// Draw 'glossy' overlay which can give some visual feedback on clicks when an preview image is set.
-	if ([(CTFClickToFlashPlugin*)[controlView superview] previewImage] != nil) {
-		[self drawGlossForBounds: bounds];		
+	if ([[CTFUserDefaultsController standardUserDefaults] boolForKey:sAprilFoolsJokeKey] || aprilFools) {
+		NSString *mascotImageFilename = nil;
+		if ([self isHighlighted]) {
+			mascotImageFilename = @"flasher2";
+		} else {
+			mascotImageFilename = @"flasher1";
+		}
+		NSBundle *CTFBundle = [NSBundle bundleWithIdentifier:@"com.github.rentzsch.clicktoflash"];
+		NSURL *fileURL = [NSURL fileURLWithPath:[CTFBundle pathForResource:mascotImageFilename ofType:@"png"]];
+		NSImage *mascotImage = [[NSImage alloc] initWithContentsOfURL:fileURL];
+		
+		float smallestDimension = 130.0; // flasher image dimensions are 130x130
+		float boundsHeight = bounds.size.height;
+		float boundsWidth = bounds.size.width;
+		if (boundsHeight < boundsWidth) {
+			if (boundsHeight < smallestDimension) {
+				smallestDimension = boundsHeight;
+			}
+		} else {
+			if (boundsWidth < smallestDimension) {
+				smallestDimension = boundsWidth;
+			}
+		}
+		float marginHeight = (boundsHeight - smallestDimension)/2.0;
+		float marginWidth = (boundsWidth - smallestDimension)/2.0;
+		NSRect drawRect = NSMakeRect(bounds.origin.x + marginWidth, bounds.origin.y + marginHeight, smallestDimension, smallestDimension);
+		
+		// first we need to draw a circular "spotlight" for the little mascot,
+		// otherwise he'll get lost on previews
+		
+		/*CGFloat gearSize = [gearImage size].width; // assumes the gear to be square
+		CGFloat size = gearSize + 2.0 * padding;
+		CGFloat x = round(bounds.size.width * .5) - round(size * .5);
+		CGFloat y = round(bounds.size.height * .5 ) - round(size * .5);										
+		NSRect backgroundFrame = NSMakeRect(x, y, size, size);*/
+		
+		NSBezierPath * circle = [NSBezierPath bezierPathWithOvalInRect:drawRect];
+		CGFloat alpha = 1.0;
+		[[NSColor colorWithDeviceWhite:1.0 alpha:alpha] set];
+		[circle fill];
+		
+		
+		// now draw the little mascot!
+		NSRect imageRect = NSMakeRect(0,0,[mascotImage size].width,[mascotImage size].height);
+		[mascotImage drawInRect:drawRect fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0];
+		[mascotImage release];
+	} else {
+		// Draw label
+		[self drawBadgeForBounds: bounds];
+		
+		// Draw 'glossy' overlay which can give some visual feedback on clicks when an preview image is set.
+		if ([(CTFClickToFlashPlugin*)[controlView superview] previewImage] != nil) {
+			[self drawGlossForBounds: bounds];		
+		}
 	}
-	
 }
 
 

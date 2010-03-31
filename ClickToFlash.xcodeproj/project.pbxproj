@@ -73,6 +73,8 @@
 		A46A5E2B109700B400E1ABAA /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79A060EB0FF1CBF50035F03A /* Sparkle.framework */; };
 		A486EE6D10A818560051FFD7 /* SparkleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A486EE6C10A818560051FFD7 /* SparkleManager.m */; };
 		A494CC2C0F9F2446007D5EEB /* ctf.icns in Resources */ = {isa = PBXBuildFile; fileRef = A494CC2B0F9F2446007D5EEB /* ctf.icns */; };
+		A4C362441162CC760016E919 /* flasher1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C362421162CC760016E919 /* flasher1.png */; };
+		A4C362451162CC760016E919 /* flasher2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C362431162CC760016E919 /* flasher2.png */; };
 		A4D8074710A4129C0024454E /* ctf.icns in Resources */ = {isa = PBXBuildFile; fileRef = A494CC2B0F9F2446007D5EEB /* ctf.icns */; };
 		A4D808EE10A7D7870024454E /* ClickToFlash Updater.app in Resources */ = {isa = PBXBuildFile; fileRef = A46A59FE1096C2A700E1ABAA /* ClickToFlash Updater.app */; };
 		A4DEFC7A0FF33F7400CCB6A8 /* CTFPreferencesDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DEFC770FF33F7400CCB6A8 /* CTFPreferencesDictionary.m */; };
@@ -236,6 +238,8 @@
 		A486EE6B10A818560051FFD7 /* SparkleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkleManager.h; path = Plugin/SparkleManager.h; sourceTree = "<group>"; };
 		A486EE6C10A818560051FFD7 /* SparkleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SparkleManager.m; path = Plugin/SparkleManager.m; sourceTree = "<group>"; };
 		A494CC2B0F9F2446007D5EEB /* ctf.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ctf.icns; path = Plugin/ctf.icns; sourceTree = "<group>"; };
+		A4C362421162CC760016E919 /* flasher1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flasher1.png; sourceTree = "<group>"; };
+		A4C362431162CC760016E919 /* flasher2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flasher2.png; sourceTree = "<group>"; };
 		A4DEFC760FF33F7400CCB6A8 /* CTFPreferencesDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFPreferencesDictionary.h; path = Plugin/CTFPreferencesDictionary.h; sourceTree = "<group>"; };
 		A4DEFC770FF33F7400CCB6A8 /* CTFPreferencesDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFPreferencesDictionary.m; path = Plugin/CTFPreferencesDictionary.m; sourceTree = "<group>"; };
 		A4DEFC780FF33F7400CCB6A8 /* CTFUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFUserDefaultsController.h; path = Plugin/CTFUserDefaultsController.h; sourceTree = "<group>"; };
@@ -340,6 +344,8 @@
 				A40485B210629B0E00FDC4E2 /* Credits.html */,
 				A40485B410629B0E00FDC4E2 /* InfoPlist.strings */,
 				A40485B610629B0E00FDC4E2 /* Localizable.strings */,
+				A4C362421162CC760016E919 /* flasher1.png */,
+				A4C362431162CC760016E919 /* flasher2.png */,
 			);
 			indentWidth = 4;
 			name = Plugin;
@@ -529,6 +535,8 @@
 				A40485BA10629B0E00FDC4E2 /* InfoPlist.strings in Resources */,
 				A40485BB10629B0E00FDC4E2 /* Localizable.strings in Resources */,
 				A4D808EE10A7D7870024454E /* ClickToFlash Updater.app in Resources */,
+				A4C362441162CC760016E919 /* flasher1.png in Resources */,
+				A4C362451162CC760016E919 /* flasher2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,7 +746,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
-				PRODUCT_VERSION = 1.6b8;
+				PRODUCT_VERSION = 1.6b9;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -753,7 +761,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
-				PRODUCT_VERSION = 1.6b8;
+				PRODUCT_VERSION = 1.6b9;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
