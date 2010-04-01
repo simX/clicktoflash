@@ -214,6 +214,7 @@
 	if ( (!potentialBundleId) && (bundle == [NSBundle mainBundle]) )
 	{
 		[[NSUserDefaults standardUserDefaults] setBool:value forKey:defaultName];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 	else
 	{
