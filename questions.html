@@ -18,7 +18,24 @@
 				</div>
 			</div>
 		</div>
-		<div class="content_box"><h3>Common Problems/Questions with ClickToFlash</h3></div>
+		<div class="content_box"><h3>Usage Notes and Common Problems/Questions with ClickToFlash (Internet Plug-In)</h3></div>
+		<div class="important_content_box">Note: these problems do not apply to the Safari 5 extension or ClickToPlugin</div>
+		<div class="content_box" id="usage">
+			<h2 id="usage_notes">Usage Notes:</h2>
+			<p id="context-menu"><span class="header_standard">Contextual menu:</span> the gear in the upper-left corner of any unloaded
+			Flash box allows access to ClickToFlash's contextual menu.  This menu allows you to do advanced things
+			like edit ClickToFlash's whitelist, specify settings, and load all Flash on the page.</p>
+			
+			<p id="app-menu"><span class="header_standard">ClickToFlash menu:</span> in certain applications, ClickToFlash will
+			activate a menu item in the application's menu.  For example, Safari has a ClickToFlash menu located at
+			[Safari -> ClickToFlash], near the "Preferences..." menu item.  This gives access to ClickToFlash's settings
+			window and a few other features.  Make sure to visit a page that has Flash on it to get this menu.</p>
+			
+			<p id="uninstall"><span class="header_standard">Uninstalling ClickToFlash:</span> for versions 1.5 and later, go to the
+			Settings window and click the "Uninstall ClickToFlash" button.  For versions prior to 1.5, navigate to
+			~/Library/Internet Plug-ins/ in the Finder, where ~ is your home folder, and delete the item named
+			"ClickToFlash.webplugin" (or "ClickToFlash.plugin").</p>
+		</div>
 		<div class="content_box" id="updating-issue">
 			<h2 id="updating_troubles">Updating Troubles:</h2>
 			<p>ClickToFlash has some troubles updating because of how it loads into
@@ -86,6 +103,12 @@
 			<p><b>App developers:</b> you do not need to wait for a new release of ClickToFlash in order to use the
 			application whitelist.  Simply include a key named "ClickToFlashOptOut" in your app's Info.plist file, set
 			its value to "YES", and your app will automatically be whitelisted by ClickToFlash.</p>
+		</div>
+
+		<div class="footer">
+			Last updated 2010-08-16.<br />
+			Copyright &copy; 2009-2010 ClickToFlash Developers.<br />
+			Original website design by Simone Manganelli (a.k.a. <a href="http://twitter.com/simX">@simX</a>)
 		</div>
 	</body>
 </html>

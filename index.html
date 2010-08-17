@@ -32,38 +32,58 @@
 				<div class="product_header_right_side">
 					<div class="title_box">
 						<h1>ClickToFlash</h1>
-						Flash-blocking plug-in for Safari on Mac OS X
+						Flash-blocking plug-in for Safari
 					</div>
 					
+					<a class="box_link" href="">
+					<div class="download_box download_box_stable box_hover">
+						<div class="download_button_box button_box_stable">
+							<span class="download_text_box download_text_box_stable">Download</span><br />
+							1.0
+						</div>
+						Safari 5 extension<br />
+						<div class="sys_reqs_box">
+							size: 526 KB<br />
+							Mac OS X 10.5+, Windows<br />
+							Safari 5.0.1+
+						</div>
+					</div>
+					</a>
+
 					<a class="box_link" href="http://cloud.github.com/downloads/rentzsch/clicktoflash/ClickToFlash-1.5.5-upload1.zip">
 					<div class="download_box download_box_stable box_hover">
 						<div class="download_button_box button_box_stable">
 							<span class="download_text_box download_text_box_stable">Download</span><br />
 							1.5.5
 						</div>
-						Latest stable version<br />
+						Internet Plug-In<br />
 						<div class="sys_reqs_box">
 							size: 526 KB<br />
-							Mac OS X 10.4-10.6
+							Mac OS X 10.4-10.6<br />
+							Safari 3+, other WebKit apps<br />
 						</div>
 					</div>
 					</a>
-					
-					<a class="box_link" href="http://cloud.github.com/downloads/rentzsch/clicktoflash/ClickToFlash-1.6b9-upload1.zip">
-					<div class="download_box download_box_beta box_hover">
-						<div class="download_button_box button_box_beta">
-							<span class="download_text_box download_text_box_beta">Beta download</span><br />
-							1.6b9
+
+					<a class="box_link" href="">
+					<div class="download_box download_box_stable box_hover">
+						<div class="download_button_box button_box_stable">
+							<span class="download_text_box download_text_box_stable">Download</span><br />
+							1.0
 						</div>
+						ClickToPlugin<br />
 						<div class="sys_reqs_box">
-							size: 612 KB<br />
-							Mac OS X 10.4-10.6
+							size: 526 KB<br />
+							Mac OS X 10.5+, Windows<br />
+							Safari 5.0.1+
 						</div>
 					</div>
 					</a>
 				
 					
 					<div class="link_box">
+						<a href="#which_version">(which version</a> should I download?)<br />
+						<hr style="width: 50%; background-color: #C8C8C8; border: 0; height: 1px;">
 						<a href="http://github.com/rentzsch/clicktoflash/tree/master">get source code</a> or  
 						<a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets?q=all">report a bug</a>
 						<span class="donating-on">or <a href="#donate">donate</a></span>
@@ -101,6 +121,7 @@
 				
 			</div>
 
+			<!--
 			<div class="important_content_box green_box">
 				<a href="killers.html">Help us</a> support other video sites!
 			</div>
@@ -108,6 +129,7 @@
 			<div class="important_content_box">
 				<span class="section_header header_important">Problems with ClickToFlash?</span>  Please see <a href="questions.html">this page</a>.
 			</div>
+			-->
 			
 			<div class="content_box less_padding">
 				<p>Ever wanted to get rid of the scourge of the web that is Adobe Flash, but still retain the ability
@@ -130,31 +152,46 @@
 				
 				<p>Come join us!  The web is so much better without Flash.</p>
 			</div>
-			
-			<div class="content_box" id="usage">
-				<h2 id="usage_notes">Usage Notes:</h2>
-				<p id="context-menu"><span class="header_standard">Contextual menu:</span> the gear in the upper-left corner of any unloaded
-				Flash box allows access to ClickToFlash's contextual menu.  This menu allows you to do advanced things
-				like edit ClickToFlash's whitelist, specify settings, and load all Flash on the page.</p>
-				
-				<p id="app-menu"><span class="header_standard">ClickToFlash menu:</span> in certain applications, ClickToFlash will
-				activate a menu item in the application's menu.  For example, Safari has a ClickToFlash menu located at
-				[Safari --> ClickToFlash], near the "Preferences..." menu item.  This gives access to ClickToFlash's settings
-				window and a few other features.  Make sure to visit a page that has Flash on it to get this menu.</p>
-				
-				<p id="uninstall"><span class="header_standard">Uninstalling ClickToFlash:</span> for versions 1.5 and later, go to the
-				Settings window and click the "Uninstall ClickToFlash" button.  For versions prior to 1.5, navigate to
-				~/Library/Internet Plug-ins/ in the Finder, where ~ is your home folder, and delete the item named
-				"ClickToFlash.webplugin" (or "ClickToFlash.plugin").</p>
 
-				<p>Please <a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets/new">report bugs
-				and request features</a> on the
-				<a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets?q=all">Lighthouse ClickToFlash
-				project site</a>.</p>
+			<div class="content_box" id="which_version">
+				<h2>Which version should I download?</h2>
 
-				<p>Want to chip in?
-				<a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets?q=not-tagged%3Abrokensite+state%3Aopen&amp;filter=">Here's
-				what needs to be done</a>.</p>
+				<p>We have three flavors of ClickToFlash: a Safari 5 extension, an internet plug-in, and ClickToPlugin.
+				Here are the various advantages and disadvantages of the three flavors:</p>
+
+				<p><span class="header_standard">Safari 5 extension:</span> this is an extension built with the tools specifically
+				designed for extending the functionality and UI of Safari 5.  <b>Advantages:</b> good UI citizen, easier to install,
+				easier to update, adds dedicated preference pane in the Extensions tab of Safari's normal preference panel, works on
+				Windows.  <b>Disadvantages:</b> only works with Safari 5.0.1 and higher (NOT in Safari 5, which has a bug), does not work
+				on Mac OS X 10.4 Tiger, works only in Safari (not any other Mac OS X app).</p>
+
+				<p><span class="header_standard">Internet Plug-In:</span> this is the original flavor of ClickToFlash, a Cocoa webplugin.
+				<b>Advantages:</b> works on Mac OS X 10.4 Tiger as well as 10.5 Leopard and 10.6 Snow Leopard, works with Safari 3
+				and higher (including Safari 5), and works in ALL Mac OS X apps that use WebKit (not just Safari). <b>Disadvantages:</b>
+				slightly funky UI (e.g.: the ClickToFlash preference pane is separate from Safari's preference pane), does not work
+				on Windows, slightly harder to install and update.</p>
+
+				<p><span class="header_standard">ClickToPlugin:</span> comes with all the advantages and disadvantages of the Safari 5
+				extension listed above (since it is ALSO a Safari 5 extension), but it allows you to block more than Flash!  It allows
+				you to block <i>all</i> content that requires a plug-in, including Silverlight and Java.  One click loads the content, just
+				like the ClickToFlash you know and love!</p>
+			</div>
+
+			<div class="content_box" id="more_info">
+				<h2 id="usage_notes">More Information:</h2>
+
+				<ul>
+				<li><a href="betas.html">beta versions</a> of ClickToFlash</li>
+				<br />
+				<li><a href="http://github.com/rentzsch/clicktoflash/tree/master">official GitHub repo</a> of BSD-licensed source code to
+				ClickToFlash</li>
+				<li><a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets/new">report bugs and request features</a>
+				on the <a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets?q=all">Lighthouse ClickToFlash
+				project site</a></li>
+				<li>if you want to contribute to ClickToFlash development, <a href="http://rentzsch.lighthouseapp.com/projects/24342-clicktoflash/tickets?q=not-tagged%3Abrokensite+state%3Aopen&amp;filter=">here's what needs to be done</a></li>
+				<li>ClickToFlash (Internet Plug-In) <a href="questions.html">usage notes and answers to common questions/problems</a></li>
+				<li>Information regarding <a href="killers.html">extending ClickToFlash's video site support</a></li>
+				</ul>
 			</div>
 			
 						
@@ -181,7 +218,7 @@
 				</div>
 				
 				<div class="donating-on">
-					If you want to help offset ClickToFlash's GitHub hosting costs, you can donate US$6 via PayPal:
+					If you want to help offset ClickToFlash's GitHub hosting costs, you can donate US$6 via PayPal:<br /><br />
 					
 					<div class="centered_text">
 						
@@ -211,7 +248,7 @@
 			</div>
 			
 			<div class="footer">
-				Last updated 2010-03-31.<br />
+				Last updated 2010-08-16.<br />
 				Copyright &copy; 2009-2010 ClickToFlash Developers.<br />
 				Original website design by Simone Manganelli (a.k.a. <a href="http://twitter.com/simX">@simX</a>)
 			</div>
