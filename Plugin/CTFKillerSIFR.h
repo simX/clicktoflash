@@ -30,12 +30,16 @@
 #import "CTFKiller.h"
 
 
+extern NSString *sSifrAutoHandleDefaultsKey;
+extern NSString *sSifrDeSifrDefaultsKey;
+
+
 @interface CTFKillerSIFR : CTFKiller {
-	NSUInteger sifrVersion;
 }
 
 
 + (BOOL) isSIFRText: (NSDictionary*) attributes;
++ (void) migrateDefaults;
 
 - (NSUInteger) sifrVersionInstalled;
 - (BOOL) shouldDeSIFR;

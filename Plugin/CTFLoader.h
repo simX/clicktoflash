@@ -4,7 +4,7 @@
  
  The MIT License
  
- Copyright (c) 2009 ClickToFlash Developers
+ Copyright (c) 2009-2010 ClickToFlash Developers
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,14 @@
 #import <Cocoa/Cocoa.h>
 
 
+
+
 @interface CTFLoader : NSObject {
 	NSMutableData * data;
 	NSURL * URL;
 	NSURLResponse * response;
 	NSURLRequest * lastRequest;
+	NSURLConnection * connection;
 	
 	id identifier;
 	
@@ -41,10 +44,11 @@
 	SEL callbackSelector;
 }
 
++ (CTFLoader *) loaderWithURL: (NSURL *) theURL delegate: (id) theDelegate selector: (SEL) theSelector;
 - (id) initWithURL: (NSURL *) theURL delegate: (id) theDelegate selector: (SEL) theSelector;
 - (void) start;
 - (void) finish;
-	
+- (void) cancel;
 
 
 - (NSData*)data;
@@ -54,6 +58,8 @@
 - (void)setResponse:(NSURLResponse *)newResponse;
 - (NSURLRequest *)lastRequest;
 - (void)setLastRequest:(NSURLRequest *)newLastRequest;
+- (NSURLConnection *)connection;
+- (void)setConnection:(NSURLConnection *)newConnection;
 - (id)identifier;
 - (void)setIdentifier:(id)newIdentifier;
 - (BOOL)HEADOnly;

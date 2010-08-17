@@ -30,13 +30,19 @@ THE SOFTWARE.
 
 @interface CTFClickToFlashPlugin( Whitelist )
 
-- (IBAction) addToWhitelist: (id) sender;
+- (IBAction) addHostToWhitelist: (id) sender;
+- (IBAction) addSrcToWhitelist: (id) sender;
 - (IBAction) editWhitelist: (id) sender;
 
-- (void) _migrateWhitelist;
++ (void) _migrateWhitelist;
 - (void) _addWhitelistObserver;
-- (BOOL) _isHostWhitelisted;
-- (BOOL) _isWhiteListedForHostString:(NSString *)hostString;
+
+- (BOOL) isWhitelisted;
+- (BOOL) isBaseWhitelisted;
+- (BOOL) isHostWhitelisted;
+- (BOOL) isSrcWhitelisted;
+- (BOOL) isStringWhitelisted: (NSString *) string;
+
 - (void) _abortAlert;
 - (void) _askToAddCurrentSiteToWhitelist;
 

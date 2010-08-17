@@ -10,7 +10,7 @@ NSString *kCTFCheckForUpdates = @"CTFCheckForUpdates";
 - (id)init
 {
     NSBundle *myBundle = [NSBundle bundleForClass:[self class]];
-    NSString *nibPath = [myBundle pathForResource:@"WhitelistPanel" ofType:@"nib"];
+    NSString *nibPath = [myBundle pathForResource:@"Preferences" ofType:@"nib"];
     if (nibPath == nil) {
         [self dealloc];
         return nil;

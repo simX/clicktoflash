@@ -26,6 +26,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "CTFUtilities.h"
 
 @class CTFClickToFlashPlugin;
 
@@ -45,12 +46,19 @@
 // Initialiser method doing the basic setup. There should be no need to use this. The +killerForULR:src:attributes:forPlugin class method should handle everything.
 - (id) initWithURL: (NSURL*) theURL src:(NSString*) theSrc attributes: (NSDictionary*) attributes forPlugin:(CTFClickToFlashPlugin*) thePlugin;
 
+
+
 // To be implemented by subclasses
 
 // Return whether this class can handle the Flash for the given URL and other data.
 + (BOOL) canHandleFlashAtURL: (NSURL*) theURL src: (NSString*) theSrc attributes: (NSDictionary*) attributes forPlugin:(CTFClickToFlashPlugin*) thePlugin;
 // Set up the subclass. If further data is needed, fetching it is started here.
 - (void) setup;
+// Called when our plug-in is destroyed, so pending actions can be stopped in a controlled way
+- (void) pluginDestroy;
+// Indicate whether we want the CtF view to be converted right away.
+- (BOOL) shouldConvertImmediately;
+
 // The label displayed in the plug-in. Subclasses can provide their own name here which is read whenever the plug-in view is redrawn.
 - (NSString*) badgeLabelText;
 // Called when building the Contextual menu to add a single item at the second position.
@@ -58,7 +66,14 @@
 // Called when building the contextual menu to add further items afte the basic Load/Hide Flash items. 
 - (void) addAdditionalMenuItemsForContextualMenu;
 // Called when the user clicks the CtF view. Replace content here.
-- (BOOL) convertToContainer;
+- (BOOL) convert;
+// Called when full screen mode starts.
+- (void) startFullScreen;
+// Called when full screen mode ends. If the killer has resized the plug-in's containerView, it can return the appropriate frame it needs to have inside the plug-in's view. Return NSZeroRect to not change anything.
+- (NSRect) stopFullScreen;
+// Called when the plug-in's view resizes.
+- (void) pluginResized;
+
 
 
 // Accessors

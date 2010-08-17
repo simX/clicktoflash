@@ -62,7 +62,7 @@
 "GB" = "GB";
 
 /* No comment provided by engineer. */
-"Install and Relaunch" = "Programm installieren und erneut starten";
+"Install and Relaunch" = "Installieren und erneut starten";
 
 /* Take care not to overflow the status window. */
 "Installing update..." = "Aktualisierung installieren …";

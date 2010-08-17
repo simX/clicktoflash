@@ -1,150 +1,164 @@
-﻿/* 
-	PLUGIN
-*/
+﻿
 
-/* Flash badge text */
+
+
+/* CTFClickToFlashPlugin: Standard Flash badge text */
 "Flash" = "Flash";
 
+/* CTFClickToFlashPlugin: Fullscreen Window Title */
+"ClickToFlash Fullscreen" = "ClickToFlash plein écran";
 
+/* CTFClickToFlashPlugin: Tooltip for fullscreen button while not in fullscreen mode */
+"Fill entire screen" = "Remplir tout l’écran";
 
-/*
-	CtF Plug-In Contextual Menu
-*/
+/* CTFClickToFlashPlugin: Tooltip for fullscreen button while in fullscreen mode */
+"Return to Web Page" = "Revenir à la page Web";
 
-/* Title of Contextual Menu */
+/* CTFClickToFlashPlugin: Title of Contextual Menu */
 "ClickToFlash Contextual menu" = "Menu contextuel ClickToFlash";
 
-/* Load Flash contextual menu item */
+
+
+
+/* CTFClickToFlashPlugin: Load Flash contextual menu item */
 "Load Flash" = "Charger Flash";
 
-/* Load All on this page contextual menu item */
-"Load All on this Page" = "Tout charger sur cette page";
+/* CTFClickToFlashPlugin: Load All on this page contextual menu item */
+"Load All on this Page" = "Charger tout le Flash";
 
-/* Hide Flash contextual menu item (sets display:none) */
-"Hide Flash" = "Masquer Flash"; 
+/* CTFClickToFlashPlugin: Hide Flash contextual menu item (sets display:none) */
+"Hide Flash" = "Masquer Flash";
 
-/* Remove Flash contextual menu item (sets visibility: hidden) */
+/* CTFClickToFlashPlugin: Remove Flash contextual menu item (sets visibility: hidden) */
 "Remove Flash" = "Supprimer Flash";
 
-/* Add <sitename> to Whitelist menu item */
+/* CTFClickToFlashPlugin: Add <sitename> to Whitelist menu item */
 "Add %@ to Whitelist" = "Charger Flash automatiquement sur « %@ »";
 
-/* Preferences Contextual Menu Item */
+/* CTFClickToFlashPlugin: Add this Flash item to Whitelist menu item */
+"Add this Flash item to Whitelist" = "Charger automatiquement cet élément Flash";
+
+/* CTFClickToFlashPlugin: Preferences Contextual Menu Item */
 "ClickToFlash Preferences..." = "Préférences ClickToFlash…";
 
+/* CTFClickToFlashPlugin Accessibility: Description */
+"Blocked Flash content" = "Contenu Flash blocqué";
+
+/* CTFClickToFlashPlugin Accessibility: Help */
+"A film or some other interactive content which is implemented in Flash should appear here. ClickToFlash prevented it from loading automatically. Clicking will start loading it." = "Une séquence ou autre contenu interactif mis en place par Flash devrait apparaitre ici. ClickToFlash l’a empêché de se charger automatiquement. Cliquer pour le charger.";
 
 
-/* 
-	Video Strings (CTFKillerVideo)
-*/
 
-/* Format for badge text for video service. This should probably just be %@ */
+/* CTFMainButton Accessibility: Description */
+"Load Flash Content" = "Charger le contenu Flash";
+
+
+
+/* CTFActionButton Accessibility: Title for button that displays the menu */
+"ClickToFlash Menu" = "Menu ClickToFlash";
+
+
+
+/* CTFKillerVideo: Format for badge text for video service. This should probably just be %@ */
 "%@ (VideoServiceName)" = "%@";
 
-/* Format to create a 'Video Service...'-style string */
+/* CTFKillerVideo: Format to create a 'Video Service...'-style string */
 "%@..." = "%@…";
 
-/* H.264 badge text */
+/* CTFKillerVideo: H.264 badge text [CTFKillerVideo] */
 "H.264" = "QuickTime";
 
-/* HD H.264 badge text */
+/* CTFKillerVideo: HD H.264 badge text */
 "HD H.264" = "QuickTime HD";
 
+/* CTFKillerVideo: Copy embed tag to Clipboard menu item */
+"Copy embed tag to Clipboard" = "Copier le code pour l’embriquer";
 
 
-/* Load H.264 context menu item */
+
+/* CTFKillerVideo: Load H.264 context menu item */
 "Load H.264" = "Charger avec QuickTime";
 
-/* Load Smaller Version contextual menu item (alternate for the standard Load H.264 item when the default uses the 'HD' version) */
+/* CTFKillerVideo: Load Smaller Version contextual menu item (alternate for the standard Load H.264 item when the default uses the 'HD' version) */
 "Load H.264 SD Version" = "Charger version plus petite avec QuickTime";
 
-/* Load Larger Version contextual menu item (alternate for the standard Load H.264 item when the default uses the non-'HD' version) */
+/* CTFKillerVideo: Load Larger Version contextual menu item (alternate for the standard Load H.264 item when the default uses the non-'HD' version) */
 "Load H.264 HD Version" = "Charger version plus grande avec QuickTime";
 
-/* Load SITENAME page for this video menu item */
+/* CTFKillerVideo: Load SITENAME page for this video menu item */
 "Load %@ page for this video" = "Aller à la page %@ pour ce film";
 
-/* Open Fullscreen in QT Player menu item */
+/* CTFKillerVideo: Open Fullscreen in QT Player menu item */
 "Play Fullscreen in QuickTime Player" = "Lire en plein écran dans QuickTime Player";
 
-/* Open Smaller Version Fullscreen in QT Player contextual menu item (alternate for the standard item when the default uses the 'HD' version) */
+/* CTFKillerVideo: Open Smaller Version Fullscreen in QT Player contextual menu item (alternate for the standard item when the default uses the 'HD' version) */
 "Play Smaller Version Fullscreen in QuickTime Player" = "Lire version plus petite en plein écran dans QuickTime Player";
 
-/* Open Larger Version Fullscreen in QT Player contextual menu item (alternate for the standard item when the default uses the non-'HD' version) */
+/* CTFKillerVideo: Open Larger Version Fullscreen in QT Player contextual menu item (alternate for the standard item when the default uses the non-'HD' version) */
 "Play Larger Version Fullscreen in QuickTime Player" = "Lire version plus grande en plein écran dans QuickTime Player";
 
-/* Download H.264 menu item */
+/* CTFKillerVideo: Download H.264 menu item */
 "Download H.264" = "Télécharger le fichier film";
 
-/* Download small size H.264 menu item (alternate for the standard item when the default uses the 'HD' version) */
+/* CTFKillerVideo: Download small size H.264 menu item (alternate for the standard item when the default uses the 'HD' version) */
 "Download SD H.264" = "Télécharger version plus petite en fichier film";
 
-/* Download large size H.264 menu item (alternate for the standard item when the default uses the non-'HD' version) */
+/* CTFKillerVideo: Download large size H.264 menu item (alternate for the standard item when the default uses the non-'HD' version) */
 "Download HD H.264" = "Télécharger version plus grande en fichier film";
 
 
-/*
-	Additional Links for inserted QuickTime film
-*/
 
-/* Text of link to Video Download appearing beneath the video */
+/* CTFKillerVideo QuickTime: Label for HD button */
+"HD" = "HD";
+
+/* CTFKillerVideo QuickTime: Tooltip for HD button when it is turned ON */
+"Use smaller version of the movie" = "Utiliser une version plus petite de ce film";
+
+/* CTFKillerVideo QuickTime: Tooltip for HD button when it is turned OFF */
+"Use larger version of the movie" = "Utiliser une version plus grande de ce film";
+
+/* CTFKillerVideo HTML: Text of link to Video Download appearing beneath the video
+ CTFKillerVideo QuickTime: Tooltip for Video Download button */
+
+
+
 "Download video file" = "Télécharger le fichier film";
 
-/* Label for download links appearing beneath the video */
-"Download: " = "Download: ";
+/* CTFKillerVideo HTML: Label for download links appearing beneath the video */
+"Download: " = "Télécharger : ";
 
-/* Text of link for downloading a version of the video in the current size; appearing beneath the video */
-"Current Size" = "Current Size";
+/* CTFKillerVideo HTML: Text of link for downloading a version of the video in the current size; appearing beneath the video */
+"Current Size" = "Taille actuelle";
 
-/* Text of link to additional Larger Size Video Download appearing beneath the video after the standard link */
+/* CTFKillerVideo HTML: Text of link to additional Larger Size Video Download appearing beneath the video after the standard link */
 "Larger Size" = "Taille plus grande";
 
-/* Text of link to the video page on SITENAME appearing beneath the video  */ 
+/* CTFKillerVideo HTML: Text of link to the video page on SITENAME appearing beneath the video  */
 "Go to %@ Page" = "Aller à la page %@";
 
 
 
+/* CTFKillerSIFR: sIFR Flash badge text */
+"sIFR Flash" = "Remplacement de texte";
+
+/* CTFKillerSIFR: Remove All Text Replacements */
+"Don't use Text Replacement" = "Retirer les remplacements de texte";
 
 
 
-/*
-	CTFKillerSIFR
-*/
-
-/* sIFR Flash badge text */
-"sIFR Flash" = "sIFR Flash";
-
-/* Remove All Text Replacements */
-"Don't use Text Replacement" = "Remove All Text Replacements";
-
-
-
-
-
-
-/* 
-	CTFWHITELISTWINDOWCONTROLLER
-*/
-
-/* Successful uninstallation Sheet informational message with application name */
+/* CTFWhitelistWindowController: Successful uninstallation Sheet informational message with application name */
 "Please quit and relaunch '%@' for the change to take effect." = "Veuillez quitter et relancer « %@ » pour que le changement prenne effet.";
 
 
 
-
-
-/*
-	CTFWHITELIST
-*/
-
-/* Always load Flash for '%@'? alert title */
+/* CTFWhitelist: Always load Flash for '%@'? alert title */
 "Always load Flash for '%@'?" = "Utiliser Flash automatiquement sur « %@ »?";
 
-/* Add <sitename> to the whitelist? alert message including removal instruction. %1$@ is the page's host name, %2$@ is the application name. */
+/* CTFWhitelist: Add <sitename> to the whitelist? alert message including removal instruction. %1$@ is the page's host name, %2$@ is the application name. */
 "Add %1$@ to the whitelist? This can be undone by opening ClickToFlash Prefrences from the %2$@ menu and removing the site from the list." = "Pour revenir sur la décision d’utiliser Flash automatiquement, ouvrez Préférences ClickToFlash du sous-menu « ClickToFlash » du menu « %2$@ » et supprimez « %1$@ » dans la liste de la fenêtre Préférences qui s’affiche.";
 
-/* Add to Whitelist button */
+/* CTFWhitelist: Add to Whitelist button */
 "Add to Whitelist" = "Utiliser Flash automatiquement";
 
-/* Cancel button */
+/* CTFWhitelist: Cancel button */
 "Cancel" = "Annuler";

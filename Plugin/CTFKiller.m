@@ -98,6 +98,12 @@
 // Set up the subclass. If further data is needed, fetching it is started here.
 - (void) setup { }
 
+// Called when our plug-in is destroyed, so pending actions can be stopped in a controlled way.
+- (void) pluginDestroy { [NSObject cancelPreviousPerformRequestsWithTarget: self]; }
+
+// Indicate whether we want the CtF view to be converted right away.
+- (BOOL) shouldConvertImmediately { return NO; }
+
 // The label displayed in the plug-in. Subclasses can provide their own name here which is read whenever the plug-in view is redrawn.
 - (NSString*) badgeLabelText { return nil; }
 
@@ -108,7 +114,16 @@
 - (void) addAdditionalMenuItemsForContextualMenu { }
 
 // Called when the user clicks the CtF view. Replace content here.
-- (BOOL) convertToContainer { return NO; }
+- (BOOL) convert { return NO; }
+
+// Called when full screen mode starts.
+- (void) startFullScreen { }
+
+// Called when full screen mode ends. If the killer has resized the plug-in's containerView, it can return the appropriate frame it needs to have inside the plug-in's view. Return NSZeroRect to not change anything.
+- (NSRect) stopFullScreen { return NSZeroRect; }
+
+// Called when the plug-in's view resizes.
+- (void) pluginResized { }
 
 
 

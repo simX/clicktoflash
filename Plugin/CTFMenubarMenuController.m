@@ -40,6 +40,7 @@ static NSString* kApplicationsToInstallMenuInto[] = {
     @"com.apple.Safari",
     @"uk.co.opencommunity.vienna2",
 	@"com.omnigroup.OmniWeb5",
+	@"org.fluidium.Fluidium",
 #if 0
     @"com.panic.Coda", // for debugging an app that includes its own old Sparkle framework.
 #endif
@@ -140,7 +141,7 @@ static CTFMenubarMenuController* sSingleton = nil;
 	
 	if( self ) {
 		if( ! [ NSBundle loadNibNamed: @"MenubarMenu" owner: self ] )
-			NSLog( @"ClickToFlash: Could not load menubar menu nib" );
+			NSLog( @"ClickToFlashMenuBarMenuController -init: Could not load menubar menu nib" );
 		
 		_views = NSCreateHashTable( NSNonRetainedObjectHashCallBacks, 0 );
 	}
@@ -165,7 +166,7 @@ static CTFMenubarMenuController* sSingleton = nil;
         return;
     
 	if( !menu ) {
-		NSLog( @"ClickToFlash: Could not load menubar menu" );
+		NSLog( @"ClickToFlashMenubarMenuController -awakeFromNib: Could not load menubar menu" );
 		return;
 	}
 	
@@ -178,7 +179,7 @@ static CTFMenubarMenuController* sSingleton = nil;
 	NSMenu* applicationMenu = appMenu();
 	
 	if ( ( insertLocation < 0 ) || ( insertLocation > [ applicationMenu numberOfItems ] ) ) {
-		NSLog( @"ClickToFlash: Could not insert menu at location %i", insertLocation );
+		NSLog( @"ClickToFlashMenubarMenuController -awakeFromNib: Could not insert menu at location %i", insertLocation );
 		return;
 	}
     

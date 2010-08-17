@@ -2,7 +2,7 @@
  
  The MIT License
  
- Copyright (c) 2009 ClickToFlash Developers
+ Copyright (c) 2009-2010 ClickToFlash Developers
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,21 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "CTFKillerVideo.h"
+
+@interface CTFKillerVideo (HTML)
+
+- (void) _convertElementForMP4: (DOMElement*) element atURL: (NSString*) URLString;
+- (void) _convertElementForVideoElement: (DOMElement*) element atURL: (NSString*) URLString;
+- (void) convertToMP4ContainerUsingHD: (NSNumber*) useHD;
+- (void) _convertToMP4ContainerAfterDelayUsingHD: (NSNumber*) useHDNumber;
+- (void) _convertToMP4ContainerUsingHD: (BOOL) useHD;
+- (DOMElement*) linkContainerElementUsingHD: (BOOL) useHD;
+
+// Helper
+- (BOOL) isVideoElementAvailable;
+- (BOOL) isVideoPreloadAvailable;
 
 
-@interface CTFAboutBoxWindowController : NSWindowController {
-}
 
 @end

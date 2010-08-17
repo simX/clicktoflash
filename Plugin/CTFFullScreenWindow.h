@@ -27,7 +27,15 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface CTFAboutBoxWindowController : NSWindowController {
+@class CTFClickToFlashPlugin;
+
+@interface CTFFullScreenWindow : NSWindow {
+	CTFClickToFlashPlugin * plugin;
 }
+
+
+- (CTFClickToFlashPlugin *) plugin;
+- (void)setPlugin:(CTFClickToFlashPlugin *) newPlugin;
+
 
 @end

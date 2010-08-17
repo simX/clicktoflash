@@ -24,10 +24,14 @@
  
 */
 
+
 #import <Cocoa/Cocoa.h>
 
 
-@interface CTFAboutBoxWindowController : NSWindowController {
+@interface CTFButton : NSButton {
+
 }
+
++ (CTFButton *) button;
 
 @end

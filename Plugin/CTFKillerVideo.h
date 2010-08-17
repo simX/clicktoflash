@@ -4,7 +4,7 @@
  
  The MIT License
  
- Copyright (c) 2009 ClickToFlash Developers
+ Copyright (c) 2009-2010 ClickToFlash Developers
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@
 #import "CTFKiller.h"
 
 @class DOMElement;
+@class QTMovie;
+@class QTMovieView;
+@class CTFLoader;
 
 enum CTFKVLookupStatus {
 	nothing = 0,
@@ -37,23 +40,46 @@ enum CTFKVLookupStatus {
 	failed = 3
 };
 
+extern NSString * sDisableVideoElementDefaultsKey;
+extern NSString * sUseYouTubeH264DefaultsKey;
+extern NSString * sUseYouTubeHDH264DefaultsKey;
+extern NSString * sYouTubeAutoPlayDefaultsKey;
+extern NSString * sUseQTKitDefaultsKey;
+// defined in CTFKillerVideo-QT
+extern NSString * sVideoVolumeLevelDefaultsKey;
+
+
+
 @interface CTFKillerVideo : CTFKiller {
 	BOOL autoPlay;
+	BOOL hasAutoPlayed;
 	BOOL hasVideo;
 	BOOL hasVideoHD;
+	NSCellStateValue usingHD;
 	
+	NSString * title;
+	
+	CTFLoader * videoLookup;
+	CTFLoader * videoHDLookup;
 	NSInteger activeLookups;
 	enum CTFKVLookupStatus lookupStatus;
 	BOOL requiresConversion;
 	
-	NSSize videoSize;
+	BOOL hasRefreshedURLs;
+
+	// used in CTFKillerVideo-QT
+	NSProgressIndicator * progressIndicator;
+	
+	QTMovieView * movieView;
+	QTMovie * movie;
+	NSView * endOfMovieButtonsView;
 }
+
 
 /*
  Subclasses use setHasVideo and setHasVideoHD to indicate when they have determined movie paths.
  They set lookupStatus to indicate whether they are still busy doing lookups. Doing this will cause a redraw which can then alter the label text.
 */
-
 
 // to be implemented by subclasses if they want to
 
@@ -63,6 +89,12 @@ enum CTFKVLookupStatus {
 // URL to the video file used for loading it in the player.
 - (NSString*) videoURLString;
 - (NSString*) videoHDURLString;
+
+// HTML needed to embed the video
+- (NSString *) embedString;
+
+// If lookups are required to determine the correct URL to the video, redo them. When returning, the URLs should be refreshed and ready to use.
+- (void) refreshVideoURLs;
 
 // Text used for video file download link. Return nil to use standard text.
 - (NSString *) videoDownloadLinkText;
@@ -84,6 +116,7 @@ enum CTFKVLookupStatus {
 
 // Helper
 + (BOOL) isActive;
+- (BOOL) convertUsingHD: (NSNumber *) useHD;
 
 // Actions
 - (IBAction) loadVideo:(id)sender;
@@ -93,37 +126,46 @@ enum CTFKVLookupStatus {
 - (IBAction) downloadVideo: (id) sender;
 - (IBAction) downloadVideoSD: (id) sender;
 - (IBAction) downloadVideoHD: (id) sender;
+- (IBAction) gotoVideoPage: (id) sender;
+- (IBAction) copyEmbedTag: (id) sender;
+- (void) openFullscreenInQTPlayerUsingHD: (BOOL) useHD;
+- (IBAction) openFullscreenInQTPlayer: (id) sender;
+- (IBAction) openFullscreenInQTPlayerSD: (id) sender;
+- (IBAction) openFullscreenInQTPlayerHD: (id) sender;
 
-// Internal stuff
-- (void) _convertElementForMP4: (DOMElement*) element atURL: (NSString*) URLString;
-- (void) _convertElementForVideoElement: (DOMElement*) element atURL: (NSString*) URLString;
-- (void) convertToMP4ContainerUsingHD: (NSNumber*) useHD;
-- (void) _convertToMP4ContainerAfterDelayUsingHD: (NSNumber*) useHDNumber;
-- (void) _convertToMP4ContainerUsingHD: (BOOL) useHD;
-- (DOMElement*) linkContainerElementUsingHD: (BOOL) useHD;
 
 // Helpers
 - (BOOL) useVideo;
 - (BOOL) useVideoHD;
 - (NSString *) videoURLStringForHD: (BOOL) useHD;
+- (NSURL *) downloadURL;
 - (NSString *) cleanURLString: (NSString*) URLString;
-- (BOOL) isVideoElementAvailable;
 - (void) finishedLookups;
 - (BOOL) canPlayResponseResult: (NSURLResponse *) result;
 
+
 // Accessors
+- (NSString *) title;
+- (void) setTitle: (NSString *) newTitle;
 - (BOOL) autoPlay;
 - (void) setAutoPlay:(BOOL)newAutoPlay;
 - (BOOL) hasVideo;
 - (void) setHasVideo:(BOOL)newHasVideo;
 - (BOOL) hasVideoHD;
 - (void) setHasVideoHD:(BOOL)newHasVideoHD;
-- (enum CTFKVLookupStatus) lookupStatus;
-- (void) setLookupStatus: (enum CTFKVLookupStatus) newLookupStatus;
+
 - (void) increaseActiveLookups;
 - (void) decreaseActiveLookups;
-- (BOOL)requiresConversion;
-- (void)setRequiresConversion:(BOOL)newRequiresConversion;
+- (CTFLoader *) videoLookup;
+- (void) setVideoLookup: (CTFLoader *) newVideoLookup;
+- (CTFLoader *) videoHDLookup;
+- (void) setVideoHDLookup: (CTFLoader *) newVideoHDLookup;
+- (enum CTFKVLookupStatus) lookupStatus;
+- (void) setLookupStatus: (enum CTFKVLookupStatus) newLookupStatus;
+- (BOOL) requiresConversion;
+- (void) setRequiresConversion: (BOOL) newRequiresConversion;
 
+- (BOOL) hasRefreshedURLs;
+- (void) setHasRefreshedURLs: (BOOL) newHasRefreshedURLs;
 
 @end

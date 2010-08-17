@@ -25,7 +25,9 @@
 	<key>NSPrincipalClass</key>
 	<string>CTFClickToFlashPlugin</string>
 	<key>WebPluginDescription</key>
-	<string>Shockwave Flash 10.0 r45</string>
+	<string>Shockwave Flash 10.1 r53</string>
+	<key>Flash version number</key>
+	<string>10.1.53.64</string>
 	<key>WebPluginMIMETypes</key>
 	<dict>
 		<key>application/x-shockwave-flash</key>

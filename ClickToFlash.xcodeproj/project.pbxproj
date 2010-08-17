@@ -23,7 +23,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = FADCD4270F421EDB00749805 /* Build configuration list for PBXAggregateTarget "Build Package" */;
 			buildPhases = (
-				6C2C5B081068D09300A90A54 /* Clean Sparkle */,
 				FADCD4210F421EAE00749805 /* Build Installer */,
 			);
 			dependencies = (
@@ -35,26 +34,34 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0038DE240FC0CCF0007B54E9 /* MATrackingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038DE230FC0CCF0007B54E9 /* MATrackingArea.m */; };
 		0038DE320FC0CE7B007B54E9 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0038DE310FC0CE7B007B54E9 /* Carbon.framework */; };
 		00FBE92F0FCD68CE00BC0995 /* NSActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 00FBE92E0FCD68CE00BC0995 /* NSActionTemplate.png */; };
-		072189BF0F30D9C3008C8944 /* WhitelistPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */; };
+		072189BF0F30D9C3008C8944 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072189BC0F30D9C3008C8944 /* Preferences.xib */; };
 		55EB70480E04A8850016593D /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EB703D0E04A84F0016593D /* Plugin.m */; };
 		55EB70580E04A8B80016593D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70560E04A8B80016593D /* Cocoa.framework */; };
 		55EB70590E04A8B80016593D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70570E04A8B80016593D /* WebKit.framework */; };
 		6953E4360F3EDE9D0014ECF7 /* CTFMenubarMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953E4340F3EDE9D0014ECF7 /* CTFMenubarMenuController.m */; };
 		6953E43C0F3EDEB50014ECF7 /* MenubarMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6953E43A0F3EDEB50014ECF7 /* MenubarMenu.xib */; };
 		69A26D0C0F302C10006648BC /* NSBezierPath-RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */; };
+		6C05EE1E1081E59700616436 /* CTFButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C05EE1D1081E59700616436 /* CTFButtonsView.m */; };
 		6C09630C107FCA610006923A /* CTFActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09630B107FCA610006923A /* CTFActionButton.m */; };
 		6C09648010808D4B0006923A /* CTFMainButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09647F10808D4B0006923A /* CTFMainButton.m */; };
+		6C2B4EC010D5A8C6000764BF /* CTFKillerVideo-QT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8F8EF10D597AE00F31573 /* CTFKillerVideo-QT.m */; };
+		6C2B4EC110D5A8C6000764BF /* CTFKillerVideo-HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8F8EA10D5979D00F31573 /* CTFKillerVideo-HTML.m */; };
 		6C2C5A6A1068CE8700A90A54 /* Credits.css in Resources */ = {isa = PBXBuildFile; fileRef = A40485B110629B0E00FDC4E2 /* Credits.css */; };
 		6C436DAF107830A200A0D525 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C436DAE107830A200A0D525 /* QTKit.framework */; };
+		6C6C1097116397CC00FE8088 /* CTFMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6C108B1163922200FE8088 /* CTFMovieView.m */; };
+		6C8815BC10A1903F00A381D6 /* CTFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8815BB10A1903F00A381D6 /* CTFButton.m */; };
 		6C8E03FF10795EB900E21A50 /* CTFLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E03FE10795EB900E21A50 /* CTFLoader.m */; };
 		6C8EC6F410764F810053587F /* CTFKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8EC6F310764F810053587F /* CTFKiller.m */; };
 		6C8EC7051076544D0053587F /* CTFKillerYouTube.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8EC7041076544D0053587F /* CTFKillerYouTube.m */; };
 		6C8EC775107671F20053587F /* CTFKillerVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8EC774107671F20053587F /* CTFKillerVideo.m */; };
 		6C8EC7E9107686780053587F /* CTFKillerSIFR.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8EC7E8107686780053587F /* CTFKillerSIFR.m */; };
+		6CB3034910D539700036544E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6CB3034710D539700036544E /* InfoPlist.strings */; };
+		6CB3039310D544480036544E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6CB3032910D5377F0036544E /* Localizable.strings */; };
 		6CC18AE61076D09B00D9E1A0 /* CTFKillerVimeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC18AE51076D09B00D9E1A0 /* CTFKillerVimeo.m */; };
+		6CF2F08F115B640400C609E0 /* ClickToFlash Updater.app in Resources */ = {isa = PBXBuildFile; fileRef = A46A59FE1096C2A700E1ABAA /* ClickToFlash Updater.app */; };
+		6CF9E9EF1083D8D7004C0C1C /* CTFFullscreenWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF9E9EE1083D8D7004C0C1C /* CTFFullscreenWindow.m */; };
 		79166CBD0FF69E1800B1F69B /* CTFGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 79166CBB0FF69E1800B1F69B /* CTFGradient.m */; };
 		79A21C4D0F30B735009424B8 /* CTFWhitelistWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A21C490F30B735009424B8 /* CTFWhitelistWindowController.m */; };
 		79B1F5C0105D9CEE0081D0B0 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 79B1F5BF105D9CEE0081D0B0 /* dsa_pub.pem */; };
@@ -74,7 +81,6 @@
 		A486EE6D10A818560051FFD7 /* SparkleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A486EE6C10A818560051FFD7 /* SparkleManager.m */; };
 		A494CC2C0F9F2446007D5EEB /* ctf.icns in Resources */ = {isa = PBXBuildFile; fileRef = A494CC2B0F9F2446007D5EEB /* ctf.icns */; };
 		A4D8074710A4129C0024454E /* ctf.icns in Resources */ = {isa = PBXBuildFile; fileRef = A494CC2B0F9F2446007D5EEB /* ctf.icns */; };
-		A4D808EE10A7D7870024454E /* ClickToFlash Updater.app in Resources */ = {isa = PBXBuildFile; fileRef = A46A59FE1096C2A700E1ABAA /* ClickToFlash Updater.app */; };
 		A4DEFC7A0FF33F7400CCB6A8 /* CTFPreferencesDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DEFC770FF33F7400CCB6A8 /* CTFPreferencesDictionary.m */; };
 		A4DEFC7B0FF33F7400CCB6A8 /* CTFUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DEFC790FF33F7400CCB6A8 /* CTFUserDefaultsController.m */; };
 		D9566D8C0F380C9F00358646 /* sifr2-addons.js in Resources */ = {isa = PBXBuildFile; fileRef = D9566C2C0F37EA0800358646 /* sifr2-addons.js */; };
@@ -163,11 +169,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0038DE220FC0CCF0007B54E9 /* MATrackingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MATrackingArea.h; path = Plugin/MATrackingArea.h; sourceTree = "<group>"; };
-		0038DE230FC0CCF0007B54E9 /* MATrackingArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MATrackingArea.m; path = Plugin/MATrackingArea.m; sourceTree = "<group>"; };
 		0038DE310FC0CE7B007B54E9 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		00FBE92E0FCD68CE00BC0995 /* NSActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NSActionTemplate.png; path = Plugin/NSActionTemplate.png; sourceTree = "<group>"; };
-		072189BD0F30D9C3008C8944 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/WhitelistPanel.xib; sourceTree = "<group>"; };
+		072189BD0F30D9C3008C8944 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		55EB703C0E04A84F0016593D /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = Plugin/Plugin.h; sourceTree = "<group>"; };
 		55EB703D0E04A84F0016593D /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Plugin.m; path = Plugin/Plugin.m; sourceTree = "<group>"; };
 		55EB70420E04A8640016593D /* ClickToFlash.webplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickToFlash.webplugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,11 +183,19 @@
 		6953E43B0F3EDEB50014ECF7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/MenubarMenu.xib; sourceTree = "<group>"; };
 		69A26D0A0F302C10006648BC /* NSBezierPath-RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath-RoundedRectangle.h"; path = "Plugin/NSBezierPath-RoundedRectangle.h"; sourceTree = "<group>"; };
 		69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath-RoundedRectangle.m"; path = "Plugin/NSBezierPath-RoundedRectangle.m"; sourceTree = "<group>"; };
+		6C05EE1C1081E59700616436 /* CTFButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFButtonsView.h; path = Plugin/CTFButtonsView.h; sourceTree = "<group>"; };
+		6C05EE1D1081E59700616436 /* CTFButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFButtonsView.m; path = Plugin/CTFButtonsView.m; sourceTree = "<group>"; };
 		6C09630A107FCA610006923A /* CTFActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFActionButton.h; path = Plugin/CTFActionButton.h; sourceTree = "<group>"; };
 		6C09630B107FCA610006923A /* CTFActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFActionButton.m; path = Plugin/CTFActionButton.m; sourceTree = "<group>"; };
 		6C09647E10808D4B0006923A /* CTFMainButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFMainButton.h; path = Plugin/CTFMainButton.h; sourceTree = "<group>"; };
 		6C09647F10808D4B0006923A /* CTFMainButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFMainButton.m; path = Plugin/CTFMainButton.m; sourceTree = "<group>"; };
+		6C1211B1114ACB550071ABD2 /* com.github.rentzsch.clicktoflash.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = com.github.rentzsch.clicktoflash.plist; path = ../../../Library/Preferences/com.github.rentzsch.clicktoflash.plist; sourceTree = SOURCE_ROOT; };
 		6C436DAE107830A200A0D525 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		6C6C108A1163922200FE8088 /* CTFMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFMovieView.h; path = Plugin/CTFMovieView.h; sourceTree = "<group>"; };
+		6C6C108B1163922200FE8088 /* CTFMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFMovieView.m; path = Plugin/CTFMovieView.m; sourceTree = "<group>"; };
+		6C6C11221163A64B00FE8088 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		6C8815BA10A1903F00A381D6 /* CTFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFButton.h; path = Plugin/CTFButton.h; sourceTree = "<group>"; };
+		6C8815BB10A1903F00A381D6 /* CTFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFButton.m; path = Plugin/CTFButton.m; sourceTree = "<group>"; };
 		6C8E03FD10795EB900E21A50 /* CTFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFLoader.h; path = Plugin/CTFLoader.h; sourceTree = "<group>"; };
 		6C8E03FE10795EB900E21A50 /* CTFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFLoader.m; path = Plugin/CTFLoader.m; sourceTree = "<group>"; };
 		6C8EC6F210764F810053587F /* CTFKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFKiller.h; path = Plugin/CTFKiller.h; sourceTree = "<group>"; };
@@ -194,8 +206,21 @@
 		6C8EC774107671F20053587F /* CTFKillerVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFKillerVideo.m; path = Plugin/CTFKillerVideo.m; sourceTree = "<group>"; };
 		6C8EC7E7107686780053587F /* CTFKillerSIFR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFKillerSIFR.h; path = Plugin/CTFKillerSIFR.h; sourceTree = "<group>"; };
 		6C8EC7E8107686780053587F /* CTFKillerSIFR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFKillerSIFR.m; path = Plugin/CTFKillerSIFR.m; sourceTree = "<group>"; };
+		6CB3032E10D538230036544E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Updater/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6CB3033B10D538540036544E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Updater/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6CB3033F10D5387C0036544E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Updater/de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6CB3034810D539700036544E /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Updater/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6CB3034C10D539950036544E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Updater/de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6CB3034F10D5399E0036544E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Updater/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6CC18AE41076D09B00D9E1A0 /* CTFKillerVimeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFKillerVimeo.h; path = Plugin/CTFKillerVimeo.h; sourceTree = "<group>"; };
 		6CC18AE51076D09B00D9E1A0 /* CTFKillerVimeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFKillerVimeo.m; path = Plugin/CTFKillerVimeo.m; sourceTree = "<group>"; };
+		6CC8F8E910D5979D00F31573 /* CTFKillerVideo-HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CTFKillerVideo-HTML.h"; path = "Plugin/CTFKillerVideo-HTML.h"; sourceTree = "<group>"; };
+		6CC8F8EA10D5979D00F31573 /* CTFKillerVideo-HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CTFKillerVideo-HTML.m"; path = "Plugin/CTFKillerVideo-HTML.m"; sourceTree = "<group>"; };
+		6CC8F8EE10D597AE00F31573 /* CTFKillerVideo-QT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CTFKillerVideo-QT.h"; path = "Plugin/CTFKillerVideo-QT.h"; sourceTree = "<group>"; };
+		6CC8F8EF10D597AE00F31573 /* CTFKillerVideo-QT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CTFKillerVideo-QT.m"; path = "Plugin/CTFKillerVideo-QT.m"; sourceTree = "<group>"; };
+		6CF2F0B8115B6C2B00C609E0 /* com.github.rentzsch.clicktoflash-updater.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = "com.github.rentzsch.clicktoflash-updater.plist"; path = "../../../Library/Preferences/com.github.rentzsch.clicktoflash-updater.plist"; sourceTree = SOURCE_ROOT; };
+		6CF9E9ED1083D8D7004C0C1C /* CTFFullScreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFFullScreenWindow.h; path = Plugin/CTFFullScreenWindow.h; sourceTree = "<group>"; };
+		6CF9E9EE1083D8D7004C0C1C /* CTFFullscreenWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFFullscreenWindow.m; path = Plugin/CTFFullscreenWindow.m; sourceTree = "<group>"; };
 		79166CBB0FF69E1800B1F69B /* CTFGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFGradient.m; path = Plugin/CTFGradient.m; sourceTree = "<group>"; };
 		79166CBC0FF69E1800B1F69B /* CTFGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFGradient.h; path = Plugin/CTFGradient.h; sourceTree = "<group>"; };
 		79475E0C0F658D9A00FD82E3 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = Plugin/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
@@ -211,8 +236,8 @@
 		A40485AB10629A9800FDC4E2 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Plugin/de.lproj/AboutBox.xib; sourceTree = "<group>"; };
 		A40485AC10629AB800FDC4E2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Plugin/fr.lproj/MenubarMenu.xib; sourceTree = "<group>"; };
 		A40485AD10629AB900FDC4E2 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Plugin/de.lproj/MenubarMenu.xib; sourceTree = "<group>"; };
-		A40485AE10629ABD00FDC4E2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Plugin/fr.lproj/WhitelistPanel.xib; sourceTree = "<group>"; };
-		A40485AF10629ABF00FDC4E2 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Plugin/de.lproj/WhitelistPanel.xib; sourceTree = "<group>"; };
+		A40485AE10629ABD00FDC4E2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Plugin/fr.lproj/Preferences.xib; sourceTree = "<group>"; };
+		A40485AF10629ABF00FDC4E2 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Plugin/de.lproj/Preferences.xib; sourceTree = "<group>"; };
 		A40485B110629B0E00FDC4E2 /* Credits.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = Credits.css; path = Plugin/Credits.css; sourceTree = "<group>"; };
 		A40485B310629B0E00FDC4E2 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = Plugin/English.lproj/Credits.html; sourceTree = "<group>"; };
 		A40485B510629B0E00FDC4E2 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Plugin/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -271,6 +296,8 @@
 		55EB70300E04A8410016593D = {
 			isa = PBXGroup;
 			children = (
+				6C6C11221163A64B00FE8088 /* README.markdown */,
+				6C1211B1114ACB550071ABD2 /* com.github.rentzsch.clicktoflash.plist */,
 				55EB70540E04A89C0016593D /* Plugin */,
 				A46A5A3D1096C93C00E1ABAA /* Updater */,
 				55EB70550E04A8A40016593D /* Frameworks */,
@@ -297,12 +324,22 @@
 				6C09647E10808D4B0006923A /* CTFMainButton.h */,
 				6C09630B107FCA610006923A /* CTFActionButton.m */,
 				6C09630A107FCA610006923A /* CTFActionButton.h */,
+				6C05EE1D1081E59700616436 /* CTFButtonsView.m */,
+				6C05EE1C1081E59700616436 /* CTFButtonsView.h */,
+				6C8815BB10A1903F00A381D6 /* CTFButton.m */,
+				6C8815BA10A1903F00A381D6 /* CTFButton.h */,
 				6C8E03FE10795EB900E21A50 /* CTFLoader.m */,
 				6C8E03FD10795EB900E21A50 /* CTFLoader.h */,
 				6C8EC6F310764F810053587F /* CTFKiller.m */,
 				6C8EC6F210764F810053587F /* CTFKiller.h */,
 				6C8EC774107671F20053587F /* CTFKillerVideo.m */,
 				6C8EC773107671F20053587F /* CTFKillerVideo.h */,
+				6CC8F8EA10D5979D00F31573 /* CTFKillerVideo-HTML.m */,
+				6CC8F8E910D5979D00F31573 /* CTFKillerVideo-HTML.h */,
+				6CC8F8EF10D597AE00F31573 /* CTFKillerVideo-QT.m */,
+				6CC8F8EE10D597AE00F31573 /* CTFKillerVideo-QT.h */,
+				6C6C108B1163922200FE8088 /* CTFMovieView.m */,
+				6C6C108A1163922200FE8088 /* CTFMovieView.h */,
 				A4627825107ED6CD005B88C4 /* CTFKillerPlistFiles.m */,
 				A4627824107ED6CD005B88C4 /* CTFKillerPlistFiles.h */,
 				6C8EC7041076544D0053587F /* CTFKillerYouTube.m */,
@@ -311,6 +348,8 @@
 				6CC18AE41076D09B00D9E1A0 /* CTFKillerVimeo.h */,
 				6C8EC7E8107686780053587F /* CTFKillerSIFR.m */,
 				6C8EC7E7107686780053587F /* CTFKillerSIFR.h */,
+				6CF9E9EE1083D8D7004C0C1C /* CTFFullscreenWindow.m */,
+				6CF9E9ED1083D8D7004C0C1C /* CTFFullScreenWindow.h */,
 				A40485DF10629C4100FDC4E2 /* CTFAboutBoxWindowController.m */,
 				A40485DE10629C4100FDC4E2 /* CTFAboutBoxWindowController.h */,
 				A4DEFC770FF33F7400CCB6A8 /* CTFPreferencesDictionary.m */,
@@ -332,7 +371,7 @@
 				55EB70610E04A8D00016593D /* Info-Plugin.plist */,
 				A40485A510629A3D00FDC4E2 /* AboutBox.xib */,
 				6953E43A0F3EDEB50014ECF7 /* MenubarMenu.xib */,
-				072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */,
+				072189BC0F30D9C3008C8944 /* Preferences.xib */,
 				A494CC2B0F9F2446007D5EEB /* ctf.icns */,
 				79B1F5BF105D9CEE0081D0B0 /* dsa_pub.pem */,
 				D9566C2B0F37EA0800358646 /* deSIFR Resources */,
@@ -362,8 +401,6 @@
 			children = (
 				69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */,
 				69A26D0A0F302C10006648BC /* NSBezierPath-RoundedRectangle.h */,
-				0038DE230FC0CCF0007B54E9 /* MATrackingArea.m */,
-				0038DE220FC0CCF0007B54E9 /* MATrackingArea.h */,
 				79166CBB0FF69E1800B1F69B /* CTFGradient.m */,
 				79166CBC0FF69E1800B1F69B /* CTFGradient.h */,
 				00FBE92E0FCD68CE00BC0995 /* NSActionTemplate.png */,
@@ -385,11 +422,14 @@
 		A46A5A3D1096C93C00E1ABAA /* Updater */ = {
 			isa = PBXGroup;
 			children = (
+				6CF2F0B8115B6C2B00C609E0 /* com.github.rentzsch.clicktoflash-updater.plist */,
 				A46A5A001096C2A700E1ABAA /* Info-Updater.plist */,
 				A46A5A421096C95500E1ABAA /* CTFSparkleManager.h */,
 				A46A5A431096C95500E1ABAA /* CTFSparkleManager.m */,
-				A46A5A471096C98400E1ABAA /* MainMenu.xib */,
 				A46A5A5B1096C9C800E1ABAA /* main.m */,
+				A46A5A471096C98400E1ABAA /* MainMenu.xib */,
+				6CB3034710D539700036544E /* InfoPlist.strings */,
+				6CB3032910D5377F0036544E /* Localizable.strings */,
 			);
 			name = Updater;
 			sourceTree = "<group>";
@@ -434,6 +474,7 @@
 				A46A59FB1096C2A700E1ABAA /* Sources */,
 				A46A59FC1096C2A700E1ABAA /* Frameworks */,
 				A46A59FA1096C2A700E1ABAA /* Resources */,
+				6C268D7F10CEA5900025815C /* Clean Sparkle */,
 			);
 			buildRules = (
 			);
@@ -460,6 +501,7 @@
 				German,
 				fr,
 				de,
+				en,
 			);
 			mainGroup = 55EB70300E04A8410016593D;
 			productRefGroup = 55EB70430E04A8640016593D /* Products */;
@@ -472,8 +514,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				A46A59FD1096C2A700E1ABAA /* ClickToFlash Updater */,
 				55EB70410E04A8640016593D /* ClickToFlash */,
+				A46A59FD1096C2A700E1ABAA /* ClickToFlash Updater */,
 				2B9260570F36854B000F1583 /* Install plugin for user */,
 				FADCD4220F421EAE00749805 /* Build Package */,
 			);
@@ -518,7 +560,7 @@
 			files = (
 				D9566D8C0F380C9F00358646 /* sifr2-addons.js in Resources */,
 				D9566D8D0F380C9F00358646 /* sifr3-addons.js in Resources */,
-				072189BF0F30D9C3008C8944 /* WhitelistPanel.xib in Resources */,
+				072189BF0F30D9C3008C8944 /* Preferences.xib in Resources */,
 				6953E43C0F3EDEB50014ECF7 /* MenubarMenu.xib in Resources */,
 				A494CC2C0F9F2446007D5EEB /* ctf.icns in Resources */,
 				00FBE92F0FCD68CE00BC0995 /* NSActionTemplate.png in Resources */,
@@ -528,7 +570,7 @@
 				A40485B910629B0E00FDC4E2 /* Credits.html in Resources */,
 				A40485BA10629B0E00FDC4E2 /* InfoPlist.strings in Resources */,
 				A40485BB10629B0E00FDC4E2 /* Localizable.strings in Resources */,
-				A4D808EE10A7D7870024454E /* ClickToFlash Updater.app in Resources */,
+				6CF2F08F115B640400C609E0 /* ClickToFlash Updater.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +581,8 @@
 				A46A5A141096C5E600E1ABAA /* dsa_pub.pem in Resources */,
 				A46A5A5D1096C9CD00E1ABAA /* MainMenu.xib in Resources */,
 				A4D8074710A4129C0024454E /* ctf.icns in Resources */,
+				6CB3039310D544480036544E /* Localizable.strings in Resources */,
+				6CB3034910D539700036544E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,9 +602,10 @@
 			shellPath = /bin/sh;
 			shellScript = "rm -Rf \"$HOME/Library/Internet Plug-Ins/ClickToFlash.plugin\"\nrm -Rf \"$HOME/Library/Internet Plug-Ins/ClickToFlash.webplugin\"\ncp -R \"$BUILT_PRODUCTS_DIR/ClickToFlash.webplugin\" \"$HOME/Library/Internet Plug-Ins/ClickToFlash.webplugin\"\nexit 0";
 		};
-		6C2C5B081068D09300A90A54 /* Clean Sparkle */ = {
+		6C268D7F10CEA5900025815C /* Clean Sparkle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			comments = "Be sure to add the names of additional localisations into the regexp.";
 			files = (
 			);
 			inputPaths = (
@@ -570,7 +615,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$BUILT_PRODUCTS_DIR\"\ncd \"ClickToFlash.webplugin/Contents/Resources/ClickToFlash Updater.app/Contents\"\n\n# Sparkle cleanup\n\n# kill headers\ncd \"Frameworks/Sparkle.framework/\"\nls | grep Headers | xargs rm\ncd \"Versions/A\"\nls | grep Headers | xargs rm -r \n\n# kill unused localisations\ncd \"Resources\"\nls | grep lproj | grep -v -E '(de|en|fr).lproj' | xargs rm -r";
+			shellScript = "cd \"$BUILT_PRODUCTS_DIR\"\ncd \"ClickToFlash Updater.app/Contents/\"\n\n# Sparkle cleanup\n\n# kill headers\ncd \"Frameworks/Sparkle.framework/\"\nls | grep Headers | xargs rm\ncd \"Versions/A\"\nls | grep Headers | xargs rm -r \n\n# kill unused localisations\ncd \"Resources\"\nls | grep lproj | grep -v -E '(de|en|fr).lproj' | xargs rm -r";
 		};
 		FADCD4210F421EAE00749805 /* Build Installer */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -599,19 +644,24 @@
 				6953E4360F3EDE9D0014ECF7 /* CTFMenubarMenuController.m in Sources */,
 				845704550F4792320017F3F4 /* CTFWhitelist.m in Sources */,
 				8457045A0F47BC170017F3F4 /* CTFUtilities.m in Sources */,
-				0038DE240FC0CCF0007B54E9 /* MATrackingArea.m in Sources */,
 				A4DEFC7A0FF33F7400CCB6A8 /* CTFPreferencesDictionary.m in Sources */,
 				A4DEFC7B0FF33F7400CCB6A8 /* CTFUserDefaultsController.m in Sources */,
 				79166CBD0FF69E1800B1F69B /* CTFGradient.m in Sources */,
 				A40485E010629C4100FDC4E2 /* CTFAboutBoxWindowController.m in Sources */,
 				6C8EC6F410764F810053587F /* CTFKiller.m in Sources */,
-				6C8EC7051076544D0053587F /* CTFKillerYouTube.m in Sources */,
 				6C8EC775107671F20053587F /* CTFKillerVideo.m in Sources */,
+				6C2B4EC010D5A8C6000764BF /* CTFKillerVideo-QT.m in Sources */,
+				6C6C1097116397CC00FE8088 /* CTFMovieView.m in Sources */,
+				6C2B4EC110D5A8C6000764BF /* CTFKillerVideo-HTML.m in Sources */,
+				6C8EC7051076544D0053587F /* CTFKillerYouTube.m in Sources */,
 				6C8EC7E9107686780053587F /* CTFKillerSIFR.m in Sources */,
 				6CC18AE61076D09B00D9E1A0 /* CTFKillerVimeo.m in Sources */,
 				6C8E03FF10795EB900E21A50 /* CTFLoader.m in Sources */,
 				6C09630C107FCA610006923A /* CTFActionButton.m in Sources */,
 				6C09648010808D4B0006923A /* CTFMainButton.m in Sources */,
+				6C05EE1E1081E59700616436 /* CTFButtonsView.m in Sources */,
+				6CF9E9EF1083D8D7004C0C1C /* CTFFullscreenWindow.m in Sources */,
+				6C8815BC10A1903F00A381D6 /* CTFButton.m in Sources */,
 				A486EE6D10A818560051FFD7 /* SparkleManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,14 +701,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		072189BC0F30D9C3008C8944 /* WhitelistPanel.xib */ = {
+		072189BC0F30D9C3008C8944 /* Preferences.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				072189BD0F30D9C3008C8944 /* English */,
 				A40485AE10629ABD00FDC4E2 /* fr */,
 				A40485AF10629ABF00FDC4E2 /* de */,
 			);
-			name = WhitelistPanel.xib;
+			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
 		6953E43A0F3EDEB50014ECF7 /* MenubarMenu.xib */ = {
@@ -669,6 +719,26 @@
 				A40485AD10629AB900FDC4E2 /* de */,
 			);
 			name = MenubarMenu.xib;
+			sourceTree = "<group>";
+		};
+		6CB3032910D5377F0036544E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CB3033B10D538540036544E /* en */,
+				6CB3033F10D5387C0036544E /* de */,
+				6CB3032E10D538230036544E /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6CB3034710D539700036544E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CB3034810D539700036544E /* en */,
+				6CB3034C10D539950036544E /* de */,
+				6CB3034F10D5399E0036544E /* fr */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		A40485A510629A3D00FDC4E2 /* AboutBox.xib */ = {
@@ -763,7 +833,6 @@
 			buildSettings = {
 				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -778,11 +847,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				"MACOSX_DEPLOYMENT_TARGET[arch=i386]" = 10.4;
 				"MACOSX_DEPLOYMENT_TARGET[arch=ppc]" = 10.4;
-				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
 				PREBINDING = NO;
 				PRODUCT_NAME = ClickToFlash;
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				VALID_ARCHS = "ppc i386 x86_64";
 				WRAPPER_EXTENSION = webplugin;
 				ZERO_LINK = NO;
@@ -792,19 +861,16 @@
 		55EB70460E04A8640016593D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-					x86_64,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				INFOPLIST_FILE = "Plugin/Info-Plugin.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
@@ -813,7 +879,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = ClickToFlash;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				VALID_ARCHS = "ppc i386 x86_64";
 				WRAPPER_EXTENSION = webplugin;
 				ZERO_LINK = NO;
@@ -836,8 +902,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Updater/Info-Updater.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				"MACOSX_DEPLOYMENT_TARGET[arch=i386]" = 10.4;
+				"MACOSX_DEPLOYMENT_TARGET[arch=ppc]" = 10.4;
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -871,6 +940,8 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Updater/Info-Updater.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				"MACOSX_DEPLOYMENT_TARGET[arch=i386]" = 10.4;
+				"MACOSX_DEPLOYMENT_TARGET[arch=ppc]" = 10.4;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Sparkle,

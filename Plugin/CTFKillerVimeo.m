@@ -4,7 +4,7 @@
  
  The MIT License
  
- Copyright (c) 2009 ClickToFlash Developers
+ Copyright (c) 2009-2010 ClickToFlash Developers
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
- */ 
+*/ 
 
 
 #import "CTFKillerVimeo.h"
@@ -39,7 +39,7 @@
 + (BOOL) canHandleFlashAtURL: (NSURL*) theURL src: (NSString*) theSrc attributes: (NSDictionary*) theAttributes forPlugin:(CTFClickToFlashPlugin*) thePlugin {
 	BOOL result = NO;
 	
-	if (theSrc != nil && [CTFKillerVideo isActive]) {
+	if (theSrc != nil && [[self class] isActive]) {
 		result = ([theSrc rangeOfString:@"/moogaloop" options:NSAnchoredSearch].location != NSNotFound);
 		
 		NSURL * srcURL = [NSURL URLWithString: theSrc];
@@ -57,7 +57,10 @@
 	[self setClipID: nil];
 	[self setClipSignature: nil];
 	[self setClipExpires: nil];
+	[self setEmbedCode: nil];
 	[self setRedirectedURLString: nil];
+	[self setRedirectedHDURLString: nil];
+	[self setXMLLoader: nil];
 	
 	NSString * myID = [ self flashVarWithName:@"clip_id" ]; 
 
@@ -75,6 +78,10 @@
 		[self setClipID: myID];		
 		[self getXML];
 	}
+	
+	if ([[self class] isVimeoSiteURL: pageURL]) {
+		[self setAutoPlay: YES];
+	}
 }
 
 
@@ -83,7 +90,10 @@
 	[self setClipID: nil];
 	[self setClipSignature: nil];
 	[self setClipExpires: nil];
+	[self setEmbedCode: nil];
 	[self setRedirectedURLString: nil];
+	[self setRedirectedHDURLString: nil];
+	[self setXMLLoader: nil];
 	[super dealloc];
 }
 
@@ -94,9 +104,21 @@
 #pragma mark -
 #pragma mark CTFVideoKiller subclassing overrides
 
-// Name of the video service that can be used for automatic link text generation 
-- (NSString*) siteName { 
-	return CtFLocalizedString(@"Vimeo", @"Name of Vimeo");
+/*
+ Name of the video service that is be used for automatic link text generation as well as the badge.
+ collegehumor.com also uses vimeo, use their name when the web page is on that site.
+*/
+- (NSString*) siteName {
+	NSString * name = nil;
+	if ( [[[[self plugin] baseURL] host] rangeOfString:@"collegehumor.com" options:NSCaseInsensitiveSearch|NSAnchoredSearch|NSBackwardsSearch].location != NSNotFound ) {
+		// we're on collegehumor.com
+		name = CtFLocalizedString(@"CollegeHumor", "Name of CollegeHumor");
+	}
+	else {
+		name =  CtFLocalizedString(@"Vimeo", @"Name of Vimeo");
+	}
+	
+	return name;
 }
 
 
@@ -111,6 +133,18 @@
 - (NSString *) videoHDURLString {
 	NSString * URLString = [self redirectedHDURLString];
 	return URLString;
+}
+
+
+
+// HTML needed to embed the video
+- (NSString *) embedString {
+	NSString * code = [self embedCode];
+	if ( code != nil ) {
+		code = [code stringByAppendingString: @"\n"];
+	}
+	
+	return code;
 }
 
 
@@ -130,6 +164,20 @@
 
 
 #pragma mark -
+#pragma mark Helper methods
+
++ (BOOL) isVimeoSiteURL: (NSURL*) theURL {
+	NSString * host = [theURL host];
+	BOOL result = [host rangeOfString:@"vimeo.com" options: NSBackwardsSearch || NSAnchoredSearch].location != NSNotFound;
+	
+	return result;
+}
+
+
+
+
+
+#pragma mark -
 #pragma mark Determine Video type
 
 /*
@@ -139,7 +187,11 @@
 
 - (void) getXML {
 	NSString * XMLURLString = [NSString stringWithFormat:@"http://vimeo.com/moogaloop/load/clip:%@", [self clipID]];
-	CTFLoader * loader = [[[CTFLoader alloc] initWithURL: [NSURL URLWithString:XMLURLString] delegate: self selector: @selector(XMLDownloadFinished:)] autorelease];
+	CTFLoader * loader = [CTFLoader loaderWithURL: [NSURL URLWithString:XMLURLString]
+										 delegate: self
+										 selector: @selector(XMLDownloadFinished:)];
+	[self setXMLLoader: loader];
+	
 	if (loader != nil) {
 		[loader start];
 		[self increaseActiveLookups];
@@ -167,7 +219,7 @@
 			node = [nodes objectAtIndex:0];
 			[self setClipExpires: [node stringValue]];
 		}
-		CGFloat width = .0;
+/*		CGFloat width = .0;
 		nodes = [XML nodesForXPath:@"//width" error:&error];
 		if ([nodes count] > 0) {
 			node = [nodes objectAtIndex:0];
@@ -179,7 +231,8 @@
 			node = [nodes objectAtIndex:0];
 			height = [[node stringValue] floatValue];
 		}
-		videoSize = NSMakeSize(width, height);
+		NSSize videoSize = NSMakeSize(width, height);
+*/
 		nodes = [XML nodesForXPath:@"//thumbnail" error:&error];
 		if ([nodes count] > 0) {
 			node = [nodes objectAtIndex:0];
@@ -188,13 +241,27 @@
 		nodes = [XML nodesForXPath:@"//isHD" error:&error];
 		if ([nodes count] > 0) {
 			node = [nodes objectAtIndex:0];
-			clipIsHD = ([[node stringValue] integerValue] != 0);
+			clipIsHD = ([[node stringValue] intValue] != 0);
 		}
+		nodes = [XML nodesForXPath:@"//caption" error:&error];
+		if ([nodes count] > 0) {
+			node = [nodes objectAtIndex:0];
+			[self setTitle: [node stringValue]];
+		}
+		nodes = [XML nodesForXPath:@"//embed_code" error:&error];
+		if ([nodes count] > 0) {
+			node = [nodes objectAtIndex:0];
+			[self setEmbedCode: [node stringValue]];
+		}
+		
 
 		// Now we collected the data but vimeo seem to have two video formats in the background flv/mp4. The only way I see so far to tell those apart is from the MIME Type of the video file's URL. Any better way to do this would be great.		
 		NSString * HEADURLString = [NSString stringWithFormat:@"http://vimeo.com/moogaloop/play/clip:%@/%@/%@/", [self clipID], [self clipSignature], [self clipExpires]];
-		CTFLoader * newLoader = [[[CTFLoader alloc] initWithURL: [NSURL URLWithString:HEADURLString] delegate:self selector:@selector(HEADDownloadFinished:)] autorelease];
+		CTFLoader * newLoader = [CTFLoader loaderWithURL: [NSURL URLWithString:HEADURLString]
+												delegate: self
+												selector: @selector(HEADDownloadFinished:)];
 		if (newLoader != nil) {
+			[self setVideoLookup: newLoader];
 			[newLoader setHEADOnly:YES];
 			[newLoader start];
 			[self increaseActiveLookups];
@@ -202,8 +269,11 @@
 		
 		if ( clipIsHD ) {
 			NSString * HEADURLHDString = [NSString stringWithFormat:@"http://vimeo.com/moogaloop/play/clip:%@/%@/%@/?q=hd", [self clipID], [self clipSignature], [self clipExpires]];
-			newLoader = [[[CTFLoader alloc] initWithURL: [NSURL URLWithString:HEADURLHDString] delegate:self selector:@selector(HEADHDDownloadFinished:)] autorelease];
+			newLoader = [CTFLoader loaderWithURL: [NSURL URLWithString:HEADURLHDString]
+										delegate: self
+										selector: @selector(HEADHDDownloadFinished:)];
 			if (newLoader != nil) {
+				[self setVideoHDLookup: newLoader];
 				[newLoader setHEADOnly:YES];
 				[newLoader start];
 				[self increaseActiveLookups];
@@ -211,6 +281,7 @@
 		}
 	}
 	[self decreaseActiveLookups];
+	[self setXMLLoader: nil];
 	
 	if (activeLookups == 0) {
 		[self setLookupStatus: failed];
@@ -220,23 +291,36 @@
 
 
 - (void) HEADDownloadFinished: (CTFLoader *) loader {
-	[self decreaseActiveLookups];
+#if LOGGING_ENABLED
+	NSLog(@"CTFKillerVimeo -HEADDownloadFinished:");
+#endif
 	
 	if ( [self canPlayResponseResult: [loader response]] ) {
 		[self setRedirectedURLString: [[[loader lastRequest] URL] absoluteString] ];
 		[self setHasVideo: YES];
 	}
+	
+	[self decreaseActiveLookups];
+	[self setVideoLookup: nil];
 }
 
 
+
 - (void) HEADHDDownloadFinished: (CTFLoader *) loader {
-	[self decreaseActiveLookups];
+#if LOGGING_ENABLED
+	NSLog(@"CTFKillerVimeo -HEADHDDownloadFinished:");
+#endif
 	
 	if ( [self canPlayResponseResult: [loader response]] ) {
 		[self setRedirectedHDURLString: [[[loader lastRequest] URL] absoluteString] ];
 		[self setHasVideoHD: YES];
 	}
+	
+	[self decreaseActiveLookups];
+	[self setVideoHDLookup: nil];
 }
+
+
 
 
 
@@ -255,6 +339,7 @@
 	clipID = newClipID;
 }
 
+
 - (NSString *) clipSignature {
 	return clipSignature;
 }
@@ -265,6 +350,7 @@
 	clipSignature = newClipSignature;
 }
 
+
 - (NSString *) clipExpires {
 	return clipExpires;
 }
@@ -273,6 +359,18 @@
 	[newClipExpires retain];
 	[clipExpires release];
 	clipExpires = newClipExpires;
+}
+
+
+- (NSString *) embedCode {
+	return embedCode;
+}
+
+
+- (void) setEmbedCode: (NSString *) newEmbedCode {
+	[newEmbedCode retain];
+	[embedCode release];
+	embedCode = newEmbedCode;
 }
 
 
@@ -286,6 +384,7 @@
 	redirectedURLString = newRedirectedURLString;
 }
 
+
 - (NSString *) redirectedHDURLString {
 	return redirectedHDURLString;
 }
@@ -295,6 +394,19 @@
 	[redirectedHDURLString release];
 	redirectedHDURLString = newRedirectedHDURLString;
 }
+
+
+- (CTFLoader *) XMLLoader {
+	return XMLLoader;
+}
+
+- (void) setXMLLoader: (CTFLoader *) newXMLLoader {
+	[newXMLLoader retain];
+	[XMLLoader cancel];
+	[XMLLoader release];
+	XMLLoader = newXMLLoader;
+}
+
 
 
 @end

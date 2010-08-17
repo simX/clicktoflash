@@ -39,6 +39,11 @@ static NSString *sCTFWhitelistAdditionMade = @"CTFWhitelistAdditionMade";
     // CTFUserDefaultsController keys
 static NSString *sHostSiteInfoDefaultsKey = @"siteInfo";
 
+    // CTFWhitelist dictionary keys
+static NSString * CTFWhitelistItemSiteKey = @"site";
+static NSString * CTFWhitelistItemKindKey = @"kind";
+
+
 typedef enum {
     CTFSiteKindWhitelist = 0
 } CTGSiteKind;
@@ -63,17 +68,16 @@ static BOOL nameMatchesDomainName ( NSString* name, NSString* domainName ) {
 	return result;
 }
 
-static NSDictionary* itemForSite( NSSet* set, NSString* site )
-{
-	NSDictionary *specificWhitelistItem = nil;
+static NSDictionary * itemForSite( NSArray * array, NSString * site ) {
+	NSDictionary * specificWhitelistItem = nil;
 	if (site != nil) {
 		
  		NSURL * siteURL = [NSURL URLWithString:site];
 		NSString * host = [siteURL host];
 		
 		if (siteURL != nil) {
-			CTFForEachObject( NSDictionary, item, set ) {
-				NSString * whitelistItem = [ item objectForKey: @"site" ];
+			CTFForEachObject( NSDictionary, item, array ) {
+				NSString * whitelistItem = [item objectForKey: CTFWhitelistItemSiteKey];
 				NSInteger slashPosition = [whitelistItem rangeOfString:@"/"].location;
 				if( slashPosition == NSNotFound ) {
 					// no slash => just check host name
@@ -99,17 +103,30 @@ static NSDictionary* itemForSite( NSSet* set, NSString* site )
 	return specificWhitelistItem;
 }
 
-static NSDictionary* whitelistItemForSite( NSString* site )
-{
-    return [ NSDictionary dictionaryWithObjectsAndKeys: site, @"site",
-            [ NSNumber numberWithInt: CTFSiteKindWhitelist ], @"kind",
-            nil ];
+static NSDictionary* whitelistItemForSite( NSString* site ) {
+	NSString * siteString = site;
+	
+	// strip leading URL scheme, if present
+	NSURL * theURL = [NSURL URLWithString:site];
+	if ( [theURL scheme] && [theURL host] ) {
+		if ( [[theURL path] length] > 0 ) {
+			siteString = [NSString stringWithFormat:@"%@%@", [theURL host], [theURL path]];
+		}
+		else {
+			siteString = [theURL host];
+		}
+	}
+	
+    return [ NSDictionary dictionaryWithObjectsAndKeys:
+			 siteString, CTFWhitelistItemSiteKey,
+             [ NSNumber numberWithInt: CTFSiteKindWhitelist ], CTFWhitelistItemKindKey,
+             nil ];
 }
 
 
 @implementation CTFClickToFlashPlugin( Whitelist )
 
-- (void) _migrateWhitelist
++ (void) _migrateWhitelist
 {
     // Migrate from the old location to the new location.  We'll leave
     // this in for a couple builds (being added for 1.4) and then remove
@@ -183,26 +200,56 @@ static NSDictionary* whitelistItemForSite( NSString* site )
     [ self _alertDone ];
 }
 
-- (BOOL) _isHostWhitelisted
-{
-	if ( [[self baseURL] hasPrefix:@"about:"] ) {
-		// encountered an ad on addictinggames.com where it loaded an
-		// about:blank page and then inserted ads there
-		return NO;
-	} else if ( ![self host] ) {
-		// Nil hosts whitelisted by default (e.g. Dashboard)
-		return YES;
+
+
+/*
+ We qualify as whitelisted for any of these reasons:
+   - our page's URL is on the whitelist
+   - our src is on the whitelist
+   - our page's URL protocol is 'about' (e.g. addictinggames.com inserts ads in a about:blank page)
+   - our page's host is nil (e.g. Dashboard)
+*/
+- (BOOL) isWhitelisted {
+	BOOL whitelisted = NO;
+	
+	whitelisted = [self isBaseWhitelisted] || [self isSrcWhitelisted];
+
+	if ( !whitelisted ) {
+		whitelisted = [[[self baseURL] scheme] isEqualToString: @"about"] || ([self host] == nil);
 	}
 	
-	return [self _isWhiteListedForHostString: [self baseURL]];
+	return whitelisted;
 }
 
-- (BOOL) _isWhiteListedForHostString:(NSString *)hostString
-{
-	NSArray *hostWhitelistArray = [[CTFUserDefaultsController standardUserDefaults] arrayForKey: sHostSiteInfoDefaultsKey];
-	NSSet *hostWhitelistSet = [NSSet setWithArray:hostWhitelistArray];
-	return hostWhitelistArray && itemForSite(hostWhitelistSet, hostString) != nil;
+
+- (BOOL) isBaseWhitelisted {
+	return [self isStringWhitelisted: [[self baseURL] absoluteString] ];
 }
+
+
+- (BOOL) isHostWhitelisted {
+	return [self isStringWhitelisted: [[self baseURL] host] ];
+}
+
+
+- (BOOL) isSrcWhitelisted {
+	return [self isStringWhitelisted: [self src]];
+}
+
+
+// Returns YES, if whitelist and string are non-nil and one of the whitelist items contains string.
+- (BOOL) isStringWhitelisted: (NSString *) string {
+	BOOL whitelisted = NO;
+	
+	NSArray * whitelistArray = [[CTFUserDefaultsController standardUserDefaults] arrayForKey: sHostSiteInfoDefaultsKey];
+	if ( whitelistArray != nil && string != nil ) {
+		whitelisted = ( itemForSite( whitelistArray, string) != nil );
+	}
+	
+	return whitelisted;
+}
+
+
 
 - (NSMutableSet *) _mutableSiteInfo
 {
@@ -218,29 +265,53 @@ static NSDictionary* whitelistItemForSite( NSString* site )
     return hostWhitelist;
 }
 
-- (void) _addHostToWhitelist
-{
+
+
+- (void) addItemToWhitelist: (NSDictionary *) whitelistItem {
     NSMutableSet *siteInfo = [self _mutableSiteInfo];
-    [siteInfo addObject: whitelistItemForSite([self host])];
+    [siteInfo addObject: whitelistItem];
 	
 	[[CTFUserDefaultsController standardUserDefaults] setValue:[siteInfo allObjects] forKeyPath:@"values.siteInfo"];
 	
     [[NSNotificationCenter defaultCenter] postNotificationName: sCTFWhitelistAdditionMade object: self];
 }
 
-- (void) _whitelistAdditionMade: (NSNotification*) notification
-{
-	if ([self _isHostWhitelisted])
-		[self convertTypesForContainer];
+
+- (void) _addHostToWhitelist {
+	[self addItemToWhitelist: whitelistItemForSite([self host])];
 }
 
-- (IBAction)addToWhitelist:(id)sender;
+
+- (void) _addSrcToWhitelist {
+	[self addItemToWhitelist: whitelistItemForSite([self src])];
+}
+	 
+
+- (void) _whitelistAdditionMade: (NSNotification*) notification
 {
-    if ([self _isHostWhitelisted])
+	if ([self isWhitelisted])
+		[self convertTypesForContainer: YES];
+}
+
+
+
+- (IBAction) addHostToWhitelist: (id) sender {
+    if ([self isHostWhitelisted])
         return;
     
     [self _addHostToWhitelist];
 }
+
+
+
+- (IBAction) addSrcToWhitelist: (id) sender {
+    if ([self isSrcWhitelisted])
+        return;
+    
+    [self _addSrcToWhitelist];
+}
+
+
 
 - (IBAction) editWhitelist: (id)sender;
 {

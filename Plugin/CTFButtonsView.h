@@ -25,9 +25,17 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "CTFUtilities.h"
 
 
-@interface CTFAboutBoxWindowController : NSWindowController {
+@interface CTFButtonsView : NSView {
+	NSMutableArray * buttons;
 }
+
+- (void) insertButton: (NSControl*) button atIndex: (NSInteger) index;
+- (void) addButton: (NSControl*) button;
+- (void) removeButton: (NSControl*) button;
+- (void) arrangeButtons;
+
 
 @end

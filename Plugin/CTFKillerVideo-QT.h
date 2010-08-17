@@ -1,6 +1,4 @@
 /*
- CTFKillerYouTube.h
- ClickToFlash
  
  The MIT License
  
@@ -23,39 +21,47 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-*/ 
-
+ 
+*/
 
 #import <Cocoa/Cocoa.h>
 #import "CTFKillerVideo.h"
-#import "CTFLoader.h"
-
-@interface CTFKillerYouTube : CTFKillerVideo {
-	NSString * videoID;
-	NSString * videoHash;
-		
-	unsigned expectedResponses;
-	
-	CTFLoader * infoLoader;
-}
 
 
-+ (BOOL) isYouTubeSiteURL: (NSURL*) theURL;
-- (NSURL *) YouTubeInfoURL;
+@interface CTFKillerVideo (QuickTime)
 
-- (void) _checkForH264VideoVariants;
++ (BOOL) shouldUseQTKit;
 
-- (void) setInfoFromFlashVars;
-- (void) evaluateYouTubeInfoString: (NSString *) YouTubeInfoString;
-- (void) retrieveYouTubeInfoAndCheck;
-- (void) synchronouslyRetrieveYouTubeInfoAndCheck;
 
-- (NSString *) videoID;
-- (void) setVideoID:(NSString *)newVideoID;
-- (NSString *) videoHash;
-- (void) setVideoHash:(NSString *)newVideoHash;
+// QuickTime
+- (void) setupQuickTimeUsingHD: (NSNumber*) useHDNumber;
+- (void) createAndInsertMovieView;
+- (QTMovie *) movieForHD: (NSNumber *) useHDNumber;
+- (void) showEndOfMovieButtons;
+- (void) hideEndOfMovieButtons;
+- (void) addProgressIndicator;
+- (void) removeProgressIndicator;
+- (void) adjustButtonPositions: (BOOL) smoothly;
+- (NSButton *) addHDButton;
+- (void) addButtons;
+- (IBAction) toggleHD: (id) sender;
+// - (void) resizeToFitMovie;
+- (NSString *) pathForSavingMovie;
 
-- (CTFLoader *) infoLoader;
-- (void) setInfoLoader: (CTFLoader *) newInfoLoader;
+// Accessors
+- (BOOL) hasAutoPlayed;
+- (void) setHasAutoPlayed:(BOOL)newHasAutoPlayed;
+- (NSCellStateValue) usingHD;
+- (void) setUsingHD:(NSCellStateValue)newUsingHD;
+- (NSProgressIndicator *) progressIndicator;
+- (void) setProgressIndicator: (NSProgressIndicator *) newProgressIndicator;
+- (QTMovieView *) movieView;
+- (void) setMovieView: (QTMovieView *) newMovieView;
+- (QTMovie *) movie;
+- (void) setMovie: (QTMovie *) newMovie;
+- (NSView *) endOfMovieButtonsView;
+- (void) setEndOfMovieButtonsView: (NSView *) newEndOfMovieButtonsView;
+
+
 
 @end

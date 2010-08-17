@@ -33,13 +33,8 @@
 #import "Plugin.h"
 #import <WebKit/WebKit.h>
 
-typedef enum {
-	CTFSifrModeDoNothing	= 0, 
-	CTFSifrModeAutoLoadSifr	= 1, 
-	CTFSifrModeDeSifr		= 2
-} CTFSifrMode;
-
-static NSString *sSifrModeDefaultsKey = @"sifrMode";
+NSString *sSifrAutoHandleDefaultsKey = @"autoHandleSIFR";
+NSString *sSifrDeSifrDefaultsKey = @"deSIFR";
 
 static NSString *sSifr2Test		= @"sIFR != null && typeof sIFR == \"function\"";
 static NSString *sSifr3Test		= @"sIFR != null && typeof sIFR == \"object\"";
@@ -52,13 +47,8 @@ static NSString *sSifr3AddOnJSFilename = @"sifr3-addons";
 
 @implementation CTFKillerSIFR
 
+#pragma mark Class Methods
 
-# pragma mark CTFKiller subclassing
-
-+ (BOOL) canHandleFlashAtURL: (NSURL*) theURL src: (NSString*) theSrc attributes: (NSDictionary*) attributes forPlugin:(CTFClickToFlashPlugin*) thePlugin {
-	return [CTFKillerSIFR isSIFRText: attributes];
-}
-	
 + (BOOL) isSIFRText: (NSDictionary*) attributes
 {
     // Check for sIFR - http://www.mikeindustries.com/sifr/
@@ -66,27 +56,77 @@ static NSString *sSifr3AddOnJSFilename = @"sifr3-addons";
     NSString* classValue = [attributes objectForKey: @"class"];
     NSString* sifrValue = [attributes objectForKey: @"sifr"];
 	
-    return [classValue isEqualToString: @"sIFR-flash"] || (sifrValue && [sifrValue boolValue]);
+    return [classValue isEqualToString: @"sIFR-flash"] || (sifrValue && ([sifrValue intValue] != 0));
 }
 
 
+
++ (void) migrateDefaults {
+	typedef enum {
+		CTFSifrModeDoNothing	= 0, 
+		CTFSifrModeAutoLoadSifr	= 1, 
+		CTFSifrModeDeSifr		= 2
+	} CTFSifrMode;
 	
-- (void) setup {
-	if ([CTFKillerSIFR shouldAutoLoadSIFR]) {
-//		_isLoadingFromWhitelist = YES;
-		[[self plugin] convertTypesForContainer];
-	}
-	else if ([self shouldDeSIFR]) {
-//		_isLoadingFromWhitelist = YES;
-		[self performSelector:@selector(disableSIFR) withObject:nil afterDelay:0];
-	}
-
+	static NSString * sSifrModeDefaultsKey = @"sifrMode";
+	
+	BOOL autoHandle = NO;
+	BOOL deSIFR = NO;
+	
+	if (![[CTFUserDefaultsController standardUserDefaults] objectForKey: sSifrAutoHandleDefaultsKey]) {
+		// no new-style setting present: if there is an old-style setting, migrate it, otherwise go for defaults
+		NSNumber * SIFRMode = [[CTFUserDefaultsController standardUserDefaults] objectForKey:sSifrModeDefaultsKey];
+		if (SIFRMode != nil) {
+			switch ([SIFRMode intValue]) {
+				case CTFSifrModeAutoLoadSifr:
+					autoHandle = YES;
+					break;
+				case CTFSifrModeDeSifr:
+					autoHandle = YES;
+					deSIFR = YES;
+					break;
+				default:
+					break;
+			}
+		}
+	
+		[[CTFUserDefaultsController standardUserDefaults] setBool:autoHandle forKey: sSifrAutoHandleDefaultsKey];
+		[[CTFUserDefaultsController standardUserDefaults] setBool:deSIFR forKey: sSifrDeSifrDefaultsKey];
+	}	
 }
+
+
+
+
+
+# pragma mark CTFKiller subclassing
+
++ (BOOL) canHandleFlashAtURL: (NSURL*) theURL src: (NSString*) theSrc attributes: (NSDictionary*) attributes forPlugin:(CTFClickToFlashPlugin*) thePlugin {
+	return [[self class] isSIFRText: attributes];
+}
+
+
+
+// Indicate whether we want the CtF view to be converted right away.
+- (BOOL) shouldConvertImmediately {
+	BOOL result = [[self class] shouldAutoLoadSIFR];
+	result = result || [self shouldDeSIFR];
+	
+	return result;
+}
+
+
+
+- (void) pluginDestroy {
+	[super pluginDestroy];
+}
+
 
 
 - (NSString*) badgeLabelText {
 	return CtFLocalizedString( @"sIFR Flash", @"sIFR Flash badge text" );
 }
+
 
 
 - (void) addPrincipalMenuItemToContextualMenu {
@@ -96,8 +136,23 @@ static NSString *sSifr3AddOnJSFilename = @"sifr3-addons";
 }
 
 
-// - (void) addAdditionalMenuItemsForContextualMenu {
-// }
+
+- (BOOL) convert {
+	// default to NO, meaning that CTFClickToFlashPlugin will convert by inserting the Flash
+	BOOL result = NO;
+	
+	if ([[self plugin] isImmediatelyConverted]) {
+		// we have been converted 'immediately': potentially deSIFR
+		if ([self shouldDeSIFR]) {
+			[self performSelector:@selector(disableSIFR) withObject:nil afterDelay:0];
+			result = YES;
+		}
+	}
+	
+	return result;
+}
+
+
 
 
 
@@ -123,7 +178,9 @@ static NSString *sSifr3AddOnJSFilename = @"sifr3-addons";
 - (BOOL) shouldDeSIFR {
     BOOL result = NO;
 
-	if ([[CTFUserDefaultsController standardUserDefaults] integerForKey: sSifrModeDefaultsKey] == CTFSifrModeDeSifr) {
+	if ([[CTFUserDefaultsController standardUserDefaults] boolForKey: sSifrAutoHandleDefaultsKey] 
+		&& [[CTFUserDefaultsController standardUserDefaults] boolForKey: sSifrDeSifrDefaultsKey]) {
+
 		result = ([self sifrVersionInstalled] != 0);
     }
     
@@ -132,33 +189,43 @@ static NSString *sSifr3AddOnJSFilename = @"sifr3-addons";
 
 
 + (BOOL) shouldAutoLoadSIFR {
-    return [[CTFUserDefaultsController standardUserDefaults] integerForKey: sSifrModeDefaultsKey] == CTFSifrModeAutoLoadSifr;
+    return [[CTFUserDefaultsController standardUserDefaults] boolForKey: sSifrAutoHandleDefaultsKey] 
+	&& ![[CTFUserDefaultsController standardUserDefaults] boolForKey: sSifrDeSifrDefaultsKey];
 }        
 
 
-- (void) disableSIFR {	
-	// get the container's WebView
+- (void) disableSIFR {
 	WebView *sifrWebView = [[self plugin] webView];
 	
-	// if sifr add-ons are not installed, load version-appropriate version into page
-	if ([[sifrWebView stringByEvaluatingJavaScriptFromString: sSifrAddOnTest] isEqualToString: @"true"]) {
-		NSBundle *clickBundle = [NSBundle bundleForClass: [self class]];
-		
-		NSString *jsFileName = sifrVersion == 2 ? sSifr2AddOnJSFilename : sSifr3AddOnJSFilename;
-		
-		NSString *addOnPath = [clickBundle pathForResource: jsFileName ofType: @"js"];
-		
-		if( addOnPath ) {
-            NSStringEncoding enc ;
-			NSString *sifrAddOnJS = [NSString stringWithContentsOfFile: addOnPath usedEncoding: &enc error: nil];
+	// Should check for sifrWebView's existence.
+	// sifrWebView could be nil if the plugin is removed while we're waiting for execution.
+	if ( sifrWebView != nil ) {
+		// If sIFR add-ons are not installed, load version-appropriate version into page.
+		if ([[sifrWebView stringByEvaluatingJavaScriptFromString: sSifrAddOnTest] isEqualToString: @"true"]) {
+			NSBundle *clickBundle = [NSBundle bundleForClass: [self class]];
 			
-			if (sifrAddOnJS && ![sifrAddOnJS isEqualToString: @""])
-				[[sifrWebView windowScriptObject] evaluateWebScript: sifrAddOnJS];
+			NSString *jsFileName;
+			if ( [self sifrVersionInstalled] == 2 ) {
+				jsFileName = sSifr2AddOnJSFilename;
+			}
+			else {
+				jsFileName = sSifr3AddOnJSFilename;
+			}
+
+			NSString *addOnPath = [clickBundle pathForResource: jsFileName ofType: @"js"];
+			
+			if( addOnPath ) {
+				NSStringEncoding enc ;
+				NSString *sifrAddOnJS = [NSString stringWithContentsOfFile: addOnPath usedEncoding: &enc error: nil];
+				
+				if (sifrAddOnJS && ![sifrAddOnJS isEqualToString: @""])
+					[[sifrWebView windowScriptObject] evaluateWebScript: sifrAddOnJS];
+			}
 		}
+		
+		// implement rollback
+		[[sifrWebView windowScriptObject] evaluateWebScript: sSifrRollbackJS];
 	}
-	
-	// implement rollback
-	[[sifrWebView windowScriptObject] evaluateWebScript: sSifrRollbackJS];
 }
 
 

@@ -94,10 +94,10 @@ shouldPostponeRelaunchForUpdate:(SUAppcastItem *)update
 	NSString *appNameString = [[[NSBundle bundleWithPath:pathToRelaunch] infoDictionary] objectForKey:@"CFBundleName"];
 	
 	
-	int relaunchResult = NSRunAlertPanel([NSString stringWithFormat:@"Relaunch %@ now?",appNameString],
-										 [NSString stringWithFormat:@"To use the new features of ClickToFlash, %@ needs to be relaunched.",appNameString],
-										 @"Relaunch",
-										 @"Do not relaunch",
+	int relaunchResult = NSRunAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Relaunch %@ now?", @"Relaunch alert: title"),appNameString],
+										 [NSString stringWithFormat:NSLocalizedString(@"To use the new features of ClickToFlash, %@ needs to be relaunched.", @"Relaunch alert: description"),appNameString],
+										 NSLocalizedString(@"Relaunch", @"Relaunch alert: relaunch button"),
+										 NSLocalizedString(@"Do not relaunch", @"Relaunch alert: do not relaunch button"),
 										 nil);
 	
 	BOOL shouldPostpone = YES;

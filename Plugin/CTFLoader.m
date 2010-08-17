@@ -1,10 +1,7 @@
-/*
- CTFImage.m
- ClickToFlash
- 
+/* 
  The MIT License
  
- Copyright (c) 2009 ClickToFlash Developers
+ Copyright (c) 2009-2010 ClickToFlash Developers
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +20,20 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
- */ 
+*/ 
 
 #import "CTFLoader.h"
+#import "CTFUtilities.h"
+
 
 
 @implementation CTFLoader
+
++ (CTFLoader *) loaderWithURL: (NSURL *) theURL delegate: (id) theDelegate selector: (SEL) theSelector {
+	return [[[CTFLoader alloc] initWithURL:theURL delegate:theDelegate selector:theSelector] autorelease];
+}
+
+
 
 - (id) initWithURL: (NSURL *) theURL delegate: (id) theDelegate selector: (SEL) theSelector {
 	self = [super init];
@@ -42,6 +47,7 @@
 		data = [[NSMutableData alloc] init];
 		identifier = nil;
 		response = nil;
+		connection = nil;
 		
 		result = self;
 	}
@@ -51,25 +57,71 @@
 
 
 
+// Calls -reallyStart on the main thread. -reallyStart opens an NSURLConnection which calls its delegate methods on the same thread it was initialised on (and does nothing when that thread doesn't exist anymore). As this method can be called on a different thread, we make sure that the delegate methods can be called when they are due.
 - (void) start {
+#if LOGGING_ENABLED > 1
+	NSLog(@"CTFLoader %@ -start for address: %@", [self description], [[self URL] absoluteString]);
+#endif
+	
+	[self performSelectorOnMainThread:@selector(reallyStart) withObject:nil waitUntilDone:YES];
+}
+
+
+
+// Starts the NSURLConnection to do the fetching. This should be invoked by calling the -start method.
+- (void) reallyStart {
 	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: URL];
 	if ([self HEADOnly]) {
 		[request setHTTPMethod:@"HEAD"];
 	}
-	[[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
-}	
+	NSURLConnection * myConnection = [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
+	[self setConnection: myConnection];
+#if LOGGING_ENABLED > 2
+	NSLog(@"CTFLoader %@ -reallyStart: started URLConnection %@", [self description], [myConnection description]);
+#endif
+}
 
 
 
 - (void) finish {
-	[delegate performSelector:callbackSelector withObject:self];
+#if LOGGING_ENABLED > 2
+	NSLog(@"CTFLoader %@ -finish", [self description]);
+#endif
+
+	[self setConnection: nil];
+	
+	if ( [self delegate] && [[self delegate] respondsToSelector:[self callbackSelector]] ) {
+		[[self delegate] performSelector:[self callbackSelector] withObject:self];
+	}
+	else {
+		NSLog(@"CTFLoader %@ -finish: could NOT use callbackSelector on delegate %@", [self description], [[self delegate] description]);
+	}
+}
+
+
+
+- (void) cancel {
+#if LOGGING_ENABLED > 2
+	NSLog(@"CTFLoader %@ -cancel", [self description]);
+#endif
+	
+	[self setDelegate: nil];
+	[[self connection] cancel];
+	[self setConnection: nil];
 }
 
 
 
 - (void) dealloc {
+#if LOGGING_ENABLED > 2
+	NSLog(@"CTFLoader %@ -dealloc", [self description]);
+#endif
+	
 	[data release];
-	[delegate release];
+    [URL release];
+    [response release];
+    [lastRequest release];
+	[connection release];
 	[identifier release];
 	[super dealloc];
 }
@@ -86,26 +138,36 @@
 
 
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)theResponse {
+- (void)connection:(NSURLConnection *)theConnection didReceiveResponse:(NSURLResponse *)theResponse {
+#if LOGGING_ENABLED > 1
+	NSLog(@"CTFLoader %@ --connection:didReceiveResponse with status: %ld", [self description], [(NSHTTPURLResponse*) theResponse statusCode]);
+#endif
 	[self setResponse: theResponse];
 	
 	// We need to cancel HEAD fetching connections here as 10.5 may proceed to download the whole file otherwise ( http://openradar.appspot.com/7019347 )
 	if ( [self HEADOnly] && [(NSHTTPURLResponse*) theResponse statusCode] == 200 ) {
+		[theConnection cancel];
+#if LOGGING_ENABLED > 2
+		NSLog(@"CTFLoader %@ --connection:didReceiveResponse: cancelled connection: %@", [self description], [theConnection description]);
+#endif
 		[self finish];
-		[connection cancel];
 	}
 }
 
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+#if LOGGING_ENABLED > 1
+	NSLog(@"CTFLoader %@ finished Loading for delegate: %@", [self description], [[self delegate] description]);
+#endif
+	
 	[self finish];		
 }
 
 
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	NSLog(@"ClickToFlash Loader download failure: %@", [error description]);
+	NSLog(@"CTFlashLoader %@ download failure: %@", [self description], [error description]);
 	[self finish];
 }
 
@@ -115,7 +177,9 @@
 			 willSendRequest:(NSURLRequest *)request 
 			redirectResponse:(NSURLResponse *)redirectResponse
 {
-//	NSLog(@"CTFLoader redirect to: %@", [[request URL] absoluteString]);
+#if LOGGING_ENABLED > 1
+	NSLog(@"CTFLoader %@ redirect to: %@", [self description], [[request URL] absoluteString]);
+#endif
 	NSURLRequest * result = request;
 	
 	// For the head fetching we need to fix the redirects to make sure the method they use is HEAD.
@@ -178,6 +242,17 @@
 }
 
 
+- (NSURLConnection *)connection {
+	return connection;
+}
+
+- (void)setConnection:(NSURLConnection *)newConnection {
+	[newConnection retain];
+	[connection release];
+	connection = newConnection;
+}
+
+
 - (id)identifier {
 	return identifier;
 }
@@ -203,8 +278,7 @@
 }
 
 - (void)setDelegate:(id)newDelegate {
-	[newDelegate retain];
-	[delegate release];
+	// don't retain delegates
 	delegate = newDelegate;
 }
 

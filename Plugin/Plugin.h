@@ -2,7 +2,7 @@
 
 The MIT License
 
-Copyright (c) 2008-2009 ClickToFlash Developers
+Copyright (c) 2008-2010 ClickToFlash Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,85 +26,152 @@ THE SOFTWARE.
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "CTFUtilities.h"
 
+
+
+// Subview Tags
+enum subviewTags {
+	CTFMainButtonTag,
+	CTFActionButtonTag,
+	CTFButtonsViewTag,
+	CTFFullScreenButtonTag,
+	CTFHDButtonTag
+};
+
+
+@class CTFLoader;
 @class CTFKiller;
+@class CTFMainButton;
+@class CTFActionButton;
+@class CTFButtonsView;
+@class CTFFullScreenWindow;
 
 @interface CTFClickToFlashPlugin : NSView <WebPlugInViewFactory> {
-	NSArray *defaultWhitelist;
+	WebView * _webView;
+    DOMElement * _container;
 	
-    DOMElement *_container;
-    NSString *_host;
-    NSDictionary* _flashVars;
-    id trackingArea;
-    NSAlert* _activeAlert;
-    BOOL mouseIsDown;
-    BOOL _isLoadingFromWhitelist;
-    BOOL _fromYouTube;
-    BOOL _fromFlickr;
-	WebView *_webView;
-	NSString *_baseURL;
-	NSDictionary *_attributes;
-	NSDictionary *_originalOpacityAttributes;
-	NSString *_src;
+	NSURL * _baseURL;
+    NSString * _host;
 
-	BOOL _contextMenuIsVisible;
-	NSTimer *_delayingTimer;
+   	NSDictionary * _attributes;
+	NSString * _src;
+	NSDictionary * _flashVars;
+	NSDictionary * _originalOpacityAttributes;
+
+	BOOL isImmediatelyConverted;
+	BOOL isConverted;
 	
+	NSView * containerView;
+	CTFMainButton * mainButton;
+	NSView * buttonsContainer;
+	CTFActionButton * actionButton;
+	CTFButtonsView * buttonsView;
+	
+	CTFFullScreenWindow * fullScreenWindow;
+
 	CTFKiller * killer;
-	
+
 	NSURL * previewURL;
 	NSImage * previewImage;
+	CTFLoader * previewImageLoader;
+	
+	// used by CTFClickToFlashPlugin+Whitelist
+    NSAlert* _activeAlert;
 }
 
-+ (NSView *)plugInViewWithArguments:(NSDictionary *)arguments;
++ (NSView *) plugInViewWithArguments: (NSDictionary *) arguments;
+- (id) initWithArguments: (NSDictionary *) arguments;
 
-- (void) revertToOriginalOpacityAttributes;
-- (void) prepareForConversion;
+- (void) opacitySetup;
+- (void) setupSubviews;
+- (BOOL) shouldConvertImmediately;
+
+- (BOOL) isConsideredInvisible;
 
 - (NSMenuItem*) addContextualMenuItemWithTitle: (NSString*) title action: (SEL) selector;
 - (NSMenuItem *) addContextualMenuItemWithTitle: (NSString*) title action: (SEL) selector target:(id) target;
 
 - (IBAction) clicked: (id) sender;
+- (IBAction) removeFlash: (id) sender;
+- (IBAction) hideFlash: (id) sender;
+- (IBAction) loadFlash:(id)sender;
+- (IBAction) loadAllOnPage:(id)sender;
 
-- (IBAction)loadFlash:(id)sender;
-- (IBAction)loadAllOnPage:(id)sender;
-- (IBAction)removeFlash: (id) sender;
-- (IBAction)hideFlash: (id) sender;
-- (void) convertTypesForContainer;
 
-+ (NSDictionary*) flashVarDictionary: (NSString*) flashvarString;
++ (NSDictionary *) flashVarDictionary: (NSString *) flashvarString;
+- (void) setFlashVarsFromString: (NSString *) string;
+- (NSString *) flashvarWithName: (NSString *) argName;
+
 + (NSString *)launchedAppBundleIdentifier;
 - (void) browseToURLString: (NSString*) URLString;
 - (void) downloadURLString: (NSString*) URLString;
+- (BOOL) useNewStyleUI;
++ (BOOL) CTFIsInactive;
+- (CGFloat) overlayOpacityHighlighted: (BOOL) highlighted;
 
-- (BOOL) isConsideredInvisible;
+- (void) convertTypesForContainer: (BOOL) keepIt;
+- (void) convertTypesForFlashContainer;
+- (void) prepareForConversion;
+- (void) revertToOriginalOpacityAttributes;
 
-- (id) initWithArguments:(NSDictionary *)arguments;
-- (void)_migratePrefsToExternalFile;
-- (void)_uniquePrefsFileWhitelist;
-- (void) _addApplicationWhitelistArrayToPrefsFile;
+- (IBAction) enterFullScreen: (id) sender;
+- (IBAction) exitFullScreen: (id) sender;
+- (IBAction) toggleFullScreen: (id) sender;
+- (NSButton*) addFullScreenButton;
+
++ (void) _migratePrefsToExternalFile;
++ (void) _uniquePrefsFileWhitelist;
++ (void) _addApplicationWhitelistArrayToPrefsFile;
+
+
+#pragma mark Accessors
+- (WebView *) webView;
+- (void) setWebView: (WebView *) newValue;
+- (DOMElement *) container;
+- (void) setContainer: (DOMElement *) newValue;
+
+- (NSURL *) baseURL;
+- (void) setBaseURL: (NSURL *) newValue;
+- (NSString *) host;
+
+- (NSDictionary *) attributes;
+- (void) setAttributes: (NSDictionary *) newValue;
+- (NSString *) src;
+- (void) setSrc: (NSString *) newValue;
+- (NSDictionary *) originalOpacityAttributes;
+- (void) setOriginalOpacityAttributes: (NSDictionary *) newValue;
+
+- (BOOL) isImmediatelyConverted;
+- (void) setIsImmediatelyConverted: (BOOL) newIsImmediatelyConverted;
+- (BOOL) isConverted;
+- (void) setIsConverted: (BOOL) newIsConverted;
+
+
+- (NSView *) containerView;
+- (void) setContainerView: (NSView *) newContainerView;
+- (CTFMainButton *) mainButton;
+- (void) setMainButton: (CTFMainButton *) newMainButton;
+- (NSView *) buttonsContainer;
+- (void) setButtonsContainer: (NSView *) newButtonsContainer;
+- (CTFActionButton *) actionButton;
+- (void) setActionButton: (CTFActionButton *) newActionButton;
+- (CTFButtonsView *) buttonsView;
+- (void) setButtonsView: (CTFButtonsView *) newButtonsView;
+
+- (CTFFullScreenWindow *) fullScreenWindow;
+- (void) setFullScreenWindow: (CTFFullScreenWindow *) newFullScreenWindow;
+- (BOOL) isFullScreen;
 
 - (CTFKiller *) killer;
-- (void)setKiller:(CTFKiller *)newKiller;
-- (DOMElement *)container;
-- (void)setContainer:(DOMElement *)newValue;
-- (NSString *)host;
-- (void)setHost:(NSString *)newValue;
-- (WebView *)webView;
-- (void)setWebView:(WebView *)newValue;
-- (NSString *)baseURL;
-- (void)setBaseURL:(NSString *)newValue;
-- (NSDictionary *)attributes;
-- (void)setAttributes:(NSDictionary *)newValue;
-- (NSDictionary *)originalOpacityAttributes;
-- (void)setOriginalOpacityAttributes:(NSDictionary *)newValue;
-- (NSString *)src;
-- (void)setSrc:(NSString *)newValue;
+- (void) setKiller: (CTFKiller *) newKiller;
 
 - (NSURL *) previewURL;
 - (void) setPreviewURL: (NSURL *) newPreviewURL;
 - (NSImage *) previewImage;
 - (void) setPreviewImage: (NSImage *) newPreviewImage;
+- (CTFLoader *) previewImageLoader;
+- (void) setPreviewImageLoader: (CTFLoader *) newPreviewImageLoader;
 
 
 @end

@@ -25,6 +25,7 @@ THE SOFTWARE.
 */
 
 #import <Cocoa/Cocoa.h>
+#import "CTFUtilities.h"
 
 @class CTFWhitelistWindowController;
 @class CTFAboutBoxWindowController;

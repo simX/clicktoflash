@@ -1,0 +1,13 @@
+﻿/* Relaunch alert: title */
+"Relaunch %@ now?" = "Relaunch %@ now?";
+
+/* Relaunch alert: description */
+"To use the new features of ClickToFlash, %@ needs to be relaunched." = "To use the updated version of ClickToFlash, %@ needs to be relaunched.";
+
+/* Relaunch alert: do not relaunch button */
+"Do not relaunch" = "Don’t relaunch";
+
+/* Relaunch alert: relaunch button */
+"Relaunch" = "Relaunch now";
+
+
