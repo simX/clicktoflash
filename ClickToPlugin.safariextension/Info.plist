@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>Author</key>
-	<string>Marc Hoyois</string>
+	<string>ClickToFlash Developers</string>
 	<key>CFBundleDisplayName</key>
 	<string>ClickToPlugin</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.hoyois.safari.clicktoplugin</string>
+	<string>com.clicktoflash.clicktoplugin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.2</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.2.1</string>
+	<string>1.0</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -50,8 +50,8 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://math.northwestern.edu/~hoyois/safariextensions/update.plist</string>
+	<string>http://clicktoflash.com/extension-update-manifest.plist</string>
 	<key>Website</key>
-	<string>http://math.northwestern.edu/~hoyois/safariextensions/clicktoplugin/</string>
+	<string>http://clicktoflash.com/</string>
 </dict>
 </plist>
