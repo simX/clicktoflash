@@ -150,7 +150,7 @@ function blockOrAllow(data) { // returns null if element can be loaded, the name
     for(var key in data.otherInfo) {
         if(key == "target" && data.otherInfo.target == "quicktimeplayer") {
             // A quicktime object that would launch QTP
-            if(confirm("A QuickTime object would like to play\n\n" + data.src + "\n\nin QuickTime Player. Do you want to allow it?")) {
+            if(confirm("Un objet QuickTime voudrait lancer le lecture de\n\n" + data.src + "\n\ndans QuickTime Player. Voulez-vous l'autoriser?")) {
                 return null;
             }
         }
@@ -212,34 +212,34 @@ function printPlugin(pluginName) {
 
 function handleContextMenu(event) {
     if(!event.userInfo.CTPInstance) {
-		if(safari.extension.settings["useLAcontext"] && event.userInfo.blocked > 0) event.contextMenu.appendContextMenuItem("loadall", "Load All Plugins (" + event.userInfo.blocked + ")");
+		if(safari.extension.settings["useLAcontext"] && event.userInfo.blocked > 0) event.contextMenu.appendContextMenuItem("loadall", "Débloquer tous les plugins (" + event.userInfo.blocked + ")");
         if(safari.extension.settings["useWLcontext"]) {
-            event.contextMenu.appendContextMenuItem("locwhitelist", "Add Location to Whitelist\u2026");
+            event.contextMenu.appendContextMenuItem("locwhitelist", "Ajouter à la liste blanche\u2026");
         }
         return;
     }
     if(event.userInfo.isH264) {
-		event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",reloadPlugin", "Reload in " + event.userInfo.plugin);
-		if(safari.extension.settings["useQTcontext"]) event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",qtp", "View in QuickTime Player");
-		if(event.userInfo.siteInfo && safari.extension.settings["useVScontext"]) event.contextMenu.appendContextMenuItem("gotosite", "View on " + event.userInfo.siteInfo.name);
+		event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",reloadPlugin", "Relancer avec " + event.userInfo.plugin);
+		if(safari.extension.settings["useQTcontext"]) event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",qtp", "Ouvrir dans QuickTime Player");
+		if(event.userInfo.siteInfo && safari.extension.settings["useVScontext"]) event.contextMenu.appendContextMenuItem("gotosite", "Voir la vidéo sur " + event.userInfo.siteInfo.name);
     } else {
         if(event.userInfo.hasH264) {
             //event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",video", "Load " + printMedia(event.userInfo.mediaType));
-			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",plugin", "Load " + printPlugin(event.userInfo.plugin));
-			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",remove", "Hide " + printPlugin(event.userInfo.plugin));
+			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",plugin", "Lancer " + printPlugin(event.userInfo.plugin));
+			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",remove", "Supprimer " + printPlugin(event.userInfo.plugin));
 			//if(safari.extension.settings["useLAcontext"] && event.userInfo.blocked > 1) event.contextMenu.appendContextMenuItem("loadall", "Load All Plugins (" + event.userInfo.blocked + ")");
-			if(safari.extension.settings["useQTcontext"]) event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",qtp", "View in QuickTime Player");
-			if(event.userInfo.siteInfo && safari.extension.settings["useVScontext"]) event.contextMenu.appendContextMenuItem("gotosite", "View on " + event.userInfo.siteInfo.name);
+			if(safari.extension.settings["useQTcontext"]) event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",qtp", "Ouvrir dans QuickTime Player");
+			if(event.userInfo.siteInfo && safari.extension.settings["useVScontext"]) event.contextMenu.appendContextMenuItem("gotosite", "Voir la vidéo sur " + event.userInfo.siteInfo.name);
 		} else {
-			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",remove", "Hide " + printPlugin(event.userInfo.plugin));
+			event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",remove", "Supprimer " + printPlugin(event.userInfo.plugin));
 			//if(safari.extension.settings["useLAcontext"] && event.userInfo.blocked > 1) event.contextMenu.appendContextMenuItem("loadall", "Load All Plugins (" + event.userInfo.blocked + ")");
 		}
         if(safari.extension.settings["useWLcontext"]) {
-            event.contextMenu.appendContextMenuItem("srcwhitelist", "Add Source to Whitelist\u2026");
+            event.contextMenu.appendContextMenuItem("srcwhitelist", "Ajouter à la liste blanche\u2026");
         }
         // BEGIN DEBUG
         if(safari.extension.settings["debug"]) {
-            event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",show", "Show Element " + event.userInfo.CTPInstance + "." + event.userInfo.elementID);
+            event.contextMenu.appendContextMenuItem(event.userInfo.CTPInstance + "," + event.userInfo.elementID + ",show", "Voir l'élément " + event.userInfo.CTPInstance + "." + event.userInfo.elementID);
         }
         //END DEBUG
     }
@@ -267,7 +267,7 @@ function doCommand(event) {
 }
 
 function handleWhitelisting (type, url) {
-    var newWLstring = prompt("Allow embedded content " + (type ? "on locations" : "from sources") + " matching:", url);
+    var newWLstring = prompt("Autoriser les plugins " + (type ? "si l'adresse de la page contient" : "provenant de"), url);
     if(newWLstring) {
         safari.extension.settings["use" + (type ? "loc" : "src") + "Whitelist"] = true;
         if(type && safari.extension.settings["locwhitelist"] == "www.example.com, www.example2.com") { // get rid of the example

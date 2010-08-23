@@ -299,7 +299,7 @@ mediaPlayer.prototype.loadTrack = function(track, autoplay) {
 		this.playlistControls.getElementsByTagName("form")[0].replaceChild(newInputField, inputField);
 		//this.playlistControls.getElementsByTagName("input")[0].setAttribute("value", track + this.startTrack + 1);
 	} else {
-		var title = "Download " + (this.playlist[track].mediaType == "audio" ? "Audio" : "Video");
+		var title = "Télécharger " + (this.playlist[track].mediaType == "audio" ? "l'audio" : "la vidéo");
 		title = "<a class=\"CTFtitleText\" href=\"" + this.mediaElement.src + "\">" + title + "</a>";
 		this.playlistControls.getElementsByTagName("p")[0].innerHTML = title;
 	}
